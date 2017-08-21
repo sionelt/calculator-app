@@ -10,7 +10,6 @@
 	flex-direction: column;
 }
 .btn {
-	composes: demo;
 	min-width: 80px;
 	width: 80px;
 	min-height: 80px;

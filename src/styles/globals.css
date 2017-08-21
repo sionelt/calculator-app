@@ -47,12 +47,14 @@ li {
 }
 
 .demo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.container {
-	width: 320px;
-	min-width: 320px;
+  height: 100vh;
 }
 
+.container {
+	position: relative;
+	width: 320px;
+	min-width: 320px;
+	margin: 0 auto;
+	top: 50%;
+	transform: translateY(-50%);
+}

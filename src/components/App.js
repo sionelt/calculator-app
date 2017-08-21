@@ -8,16 +8,14 @@ const App = () => {
 	const { demo, container } = style;
 
 	return (
-		<div>
+		<div className={demo}>
 			<Helmet>
 				<title>improved clone iphone calculator</title>
 				<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 			</Helmet>
-			<div className={demo}>
-				<div className={container}>
-					<Screen />
-					<Keypad />
-				</div>
+			<div className={container}>
+				<Screen />
+				<Keypad />
 			</div>
 		</div>
 	);
