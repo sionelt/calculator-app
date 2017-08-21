@@ -61,6 +61,9 @@ li {
 	background-color: #010001;
 	color: #999999;
 }
+.keypad {
+	display: flex;
+}
 .keys {
 	display: flex;
 	flex-wrap: wrap;
@@ -70,7 +73,11 @@ li {
 	flex-direction: column;
 }
 .btn {
-	border: 1px solid #010001;
+	border: 0.5px solid #010001;
+	text-align: center;
+	min-width: 93.75px;
+	min-height: 93.75px;
+	cursor: pointer;
 }
 .aKey {
 	composes: btn;
