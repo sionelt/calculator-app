@@ -1,0 +1,29 @@
+.container {
+	display: flex;
+}
+.inputs {
+	display: flex;
+	flex-wrap: wrap;
+}
+.operators {
+	display: flex;
+	flex-direction: column;
+}
+.btn {
+	composes: demo;
+	min-width: 80px;
+	width: 80px;
+	min-height: 80px;
+	height: 80px;
+	flex-grow: 1;
+	cursor: pointer;
+	box-shadow: 0 0 0.5px 0 #000;
+}
+.aKey {
+	composes: btn;
+	background-color: #c6c6cb;
+}
+.aOperator {
+	composes: btn;
+	background-color: #f68111;
+}

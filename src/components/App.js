@@ -1,11 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import style from 'styles/globals.css';
+import Keypad from './Keypad';
+import Screen from './Screen';
 
 const App = () => {
-	const { demo, container, display, keypad, keys, aKey, operators, aOperator } = style;
-	const KEYS = ['C', '<', '%', 7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '()', '.'];
-	const OPERATORS = ['/', 'X', '-', '+', '='];
+	const { demo, container } = style;
+
 	return (
 		<div>
 			<Helmet>
@@ -14,23 +15,8 @@ const App = () => {
 			</Helmet>
 			<div className={demo}>
 				<div className={container}>
-					<div className={display}>123</div>
-					<div className={keypad}>
-						<ul className={keys}>
-							{KEYS.map(key =>
-								<li key={key} className={aKey}>
-									{key}
-								</li>
-							)}
-						</ul>
-						<ul className={operators}>
-							{OPERATORS.map(op =>
-								<li key={op} className={aOperator}>
-									{op}
-								</li>
-							)}
-						</ul>
-					</div>
+					<Screen />
+					<Keypad />
 				</div>
 			</div>
 		</div>

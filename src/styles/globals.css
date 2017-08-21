@@ -52,42 +52,7 @@ li {
 	align-items: center;
 }
 .container {
-	max-width: 375px;
-	max-height: 667px;
+	width: 320px;
+	min-width: 320px;
 }
-.display {
-	height: 200px;
-	width: 100%;
-	background-color: #010001;
-	color: #999999;
-}
-.keypad {
-	display: flex;
-}
-.keys {
-	display: flex;
-	flex-wrap: wrap;
-}
-.operators {
-	display: flex;
-	flex-direction: column;
-}
-.btn {
-	composes: demo;
-	text-align: center;
-	min-width: 93.75px;
-	min-height: 93.75px;
-	cursor: pointer;
-}
-.aKey {
-	composes: btn;
-	background-color: #c6c6cb;
-	border-width: 0 1px 1px 0;
-	border-style: solid;
-	border-color: #010001;
-}
-.aOperator {
-	composes: btn;
-	background-color: #f68111;
-	border-bottom: 0.1px solid #010001;
-}
+
