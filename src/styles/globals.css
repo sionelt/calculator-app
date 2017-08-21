@@ -13,7 +13,7 @@ main {
 }
 
 body {
-	font-family: Poppins, sans-serif;
+	font-family: Work Sans, sans-serif;
 	font-size: 15px;
 	margin: 0;
 }
@@ -52,8 +52,8 @@ li {
 	align-items: center;
 }
 .container {
-	width: 375px;
-	height: 667px;
+	max-width: 375px;
+	max-height: 667px;
 }
 .display {
 	height: 200px;
@@ -73,7 +73,7 @@ li {
 	flex-direction: column;
 }
 .btn {
-	border: 0.5px solid #010001;
+	composes: demo;
 	text-align: center;
 	min-width: 93.75px;
 	min-height: 93.75px;
@@ -82,8 +82,12 @@ li {
 .aKey {
 	composes: btn;
 	background-color: #c6c6cb;
+	border-width: 0 1px 1px 0;
+	border-style: solid;
+	border-color: #010001;
 }
 .aOperator {
 	composes: btn;
 	background-color: #f68111;
+	border-bottom: 0.1px solid #010001;
 }

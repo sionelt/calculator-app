@@ -10,7 +10,6 @@ const App = () => {
 		<div>
 			<Helmet>
 				<title>improved clone iphone calculator</title>
-				<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500" rel="stylesheet" />
 				<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 			</Helmet>
 			<div className={demo}>
