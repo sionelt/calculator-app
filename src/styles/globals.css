@@ -14,7 +14,8 @@ main {
 
 body {
 	font-family: Work Sans, sans-serif;
-	font-size: 15px;
+	font-size: 2em;
+	font-weight: 300;
 	margin: 0;
 }
 
@@ -47,7 +48,7 @@ li {
 }
 
 .demo {
-  height: 100vh;
+	height: 100vh;
 }
 
 .container {

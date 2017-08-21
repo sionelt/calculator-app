@@ -11,7 +11,7 @@ const App = () => {
 		<div className={demo}>
 			<Helmet>
 				<title>improved clone iphone calculator</title>
-				<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+				<link href="https://fonts.googleapis.com/css?family=Work+Sans:300" rel="stylesheet" />
 			</Helmet>
 			<div className={container}>
 				<Screen />
