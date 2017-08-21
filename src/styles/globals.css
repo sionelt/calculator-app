@@ -69,3 +69,14 @@ li {
 	display: flex;
 	flex-direction: column;
 }
+.btn {
+	border: 1px solid #010001;
+}
+.aKey {
+	composes: btn;
+	background-color: #c6c6cb;
+}
+.aOperator {
+	composes: btn;
+	background-color: #f68111;
+}

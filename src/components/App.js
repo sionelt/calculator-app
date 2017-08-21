@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import style from 'styles/globals.css';
 
 const App = () => {
-	const { demo, container, display, keypad, keys, operators } = style;
+	const { demo, container, display, keypad, keys, aKey, operators, aOperator } = style;
 	return (
 		<div>
 			<Helmet>
@@ -17,10 +17,18 @@ const App = () => {
 					<div className={display}>123</div>
 					<div className={keypad}>
 						<ul className={keys}>
-							{keys.map(key => <li key={key}>key</li>)}
+							{keys.map(key =>
+								<li key={key} className={aKey}>
+									key
+								</li>
+							)}
 						</ul>
 						<ul className={operators}>
-							{operators.map(op => <li key={op}>op</li>)}
+							{operators.map(op =>
+								<li key={op} className={aOperator}>
+									op
+								</li>
+							)}
 							<li>hellow</li>
 						</ul>
 					</div>
