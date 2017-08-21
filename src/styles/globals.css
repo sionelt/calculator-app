@@ -1,0 +1,13 @@
+.demo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container {
+	width: 375px;
+	height: 667px;
+}
+.display {
+	height: 200px;
+	width: 100%;
+}
