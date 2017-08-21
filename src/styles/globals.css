@@ -61,3 +61,11 @@ li {
 	background-color: #010001;
 	color: #999999;
 }
+.keys {
+	display: flex;
+	flex-wrap: wrap;
+}
+.operators {
+	display: flex;
+	flex-direction: column;
+}
