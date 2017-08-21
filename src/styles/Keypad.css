@@ -10,6 +10,9 @@
 	flex-direction: column;
 }
 .btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	min-width: 80px;
 	width: 80px;
 	min-height: 80px;
@@ -18,7 +21,7 @@
 	cursor: pointer;
 	box-shadow: 0 0 0.5px 0 #000;
 }
-.aKey {
+.aInput {
 	composes: btn;
 	background-color: #c6c6cb;
 }
