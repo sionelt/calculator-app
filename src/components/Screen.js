@@ -4,14 +4,22 @@ import style from 'styles/Screen.css';
 class Screen extends Component {
 	constructor(props) {
 		super(props);
+		// this.state = { anEntry: this.props.display };
+		// this.handleAnEntry = this.handleAnEntry.bind(this);
 	}
+
+	// handleAnEntry() {
+	// 	this.setState({ anEntry: this.props.display });
+	// }
 
 	render() {
 		const { container, displayAll, displayEntry } = style;
 		return (
 			<div className={container}>
 				<div className={displayAll}>12+32</div>
-				<div className={displayEntry}>123,456,789</div>
+				<div className={displayEntry}>
+					{this.props.display}
+				</div>
 			</div>
 		);
 	}

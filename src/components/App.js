@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import style from 'styles/globals.css';
 import Keypad from './Keypad';
@@ -10,11 +10,9 @@ class App extends Component {
 		this.state = { keyEntered: '', displayAnEntry: '', displayAllEntries: '' };
 		this.handleClick = this.handleClick.bind(this);
 	}
-  handleClick() {
-    this.setState ({
-      keyEntered: { operator }
-    })
-  }
+	handleClick(input) {
+		this.setState({ keyEntered: input });
+	}
 	render() {
 		const { demo, container } = style;
 		const INPUTS = ['C', '<', '%', 7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '()', '.'];
@@ -26,8 +24,13 @@ class App extends Component {
 					<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet" />
 				</Helmet>
 				<div className={container}>
-					<Screen />
-          <Keypad allInputs={INPUTS} allOperators={OPERATORS} onEnter={this.handleClick} />
+					<Screen display={this.state.keyEntered} />
+					<Keypad
+						allInputs={INPUTS}
+						allOperators={OPERATORS}
+						onInput={this.handleClick}
+						display={this.state.displayAnEntry}
+					/>
 				</div>
 			</div>
 		);
