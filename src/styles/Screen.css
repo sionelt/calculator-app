@@ -2,7 +2,22 @@
 	height: 160px;
 	min-height: 160px;
 	width: 100%;
+	padding: 30px 10px 0;
 	background-color: #010001;
 	box-shadow: 0 0 0.5px 0 #000;
-	color: #999999;
+	color: #f4f4f4;
+}
+.display {
+	display: flex;
+	justify-content: flex-end;
+	text-overflow: scale;
+}
+.displayAll {
+	composes: display;
+}
+
+.displayEntry {
+	composes: display;
+	font-size: 2.5em;
+	font-weight: 200;
 }
