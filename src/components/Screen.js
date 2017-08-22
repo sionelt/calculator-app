@@ -5,7 +5,6 @@ class Screen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { anEntry: '', allEntries: '' };
-		// this.handleAnEntry = this.handleAnEntry.bind(this);
 	}
 
 	componentDidMount() {
@@ -20,10 +19,10 @@ class Screen extends Component {
 		return (
 			<div className={container}>
 				<div className={displayAll}>
-					{this.props.displayAll}
+					{this.props.Entries}
 				</div>
 				<div className={displayEntry}>
-					{this.props.display}
+					{this.props.Entries[this.props.Entries.length - 1]}
 				</div>
 			</div>
 		);

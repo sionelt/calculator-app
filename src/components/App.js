@@ -7,13 +7,15 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { keyEntered: '', allEntries: [] };
+		this.state = { allEntries: [] };
 		this.handleClick = this.handleClick.bind(this);
 	}
-	handleClick(input) {
-		this.setState(prevState => ({ keyEntered: input, allEntries: [...prevState.allEntries, input] }));
+
+	handleClick(entry) {
+		this.setState(prevState => ({ allEntries: [...prevState.allEntries, entry] }));
 		console.log(this.state.allEntries);
 	}
+
 	render() {
 		const { demo, container } = style;
 		const INPUTS = ['C', '<', '%', 7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '()', '.'];
@@ -25,7 +27,7 @@ class App extends Component {
 					<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet" />
 				</Helmet>
 				<div className={container}>
-					<Screen display={this.state.keyEntered} displayAll={this.state.allEntries} />
+					<Screen Entries={this.state.allEntries} />
 					<Keypad allInputs={INPUTS} allOperators={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
