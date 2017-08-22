@@ -28,4 +28,5 @@
 .operator {
 	composes: btn;
 	background-color: #f68111;
+	color: #fff;
 }

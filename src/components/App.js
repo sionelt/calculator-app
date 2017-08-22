@@ -22,6 +22,8 @@ class App extends Component {
 			this.setState({ inputsArr: [], allEntries: [] });
 		} else if (anInput === 'CE') {
 			this.setState({ inputsArr: [] });
+		} else if (anInput === '%') {
+			this.setState({ inputsArr: parseFloat(this.state.inputsArr.join('')) / 100 });
 		}
 	}
 
