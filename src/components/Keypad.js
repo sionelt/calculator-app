@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import style from 'styles/Keypad.css';
 
 const Keypad = props => {
-	const { container, inputs, aInput, operators, aOperator } = style;
-	const { AllInputs, AllOperators, OnInput } = props;
+	const { container, inputs, input, operators, operator } = style;
+	const { inputKeys, operatorKeys, onInput } = props;
 	return (
 		<div className={container}>
 			<ul className={inputs}>
-				{AllInputs.map(anInput =>
-					<li key={input} className={input} onClick={() => OnInput(anInput)}>
+				{inputKeys.map(anInput =>
+					<li key={anInput} className={input} onClick={() => onInput(anInput)}>
 						{anInput}
 					</li>
 				)}
 			</ul>
 			<ul className={operators}>
-				{AllOperators.map(anOperator =>
-					<li key={operator} className={operator}>
+				{operatorKeys.map(anOperator =>
+					<li key={anOperator} className={operator}>
 						{anOperator}
 					</li>
 				)}

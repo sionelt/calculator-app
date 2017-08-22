@@ -18,8 +18,6 @@ class App extends Component {
 
 	render() {
 		const { demo, container } = style;
-		const INPUTS = ['C', '<', '%', 7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '()', '.'];
-		const OPERATORS = ['/', 'x', '-', '+', '='];
 		return (
 			<div className={demo}>
 				<Helmet>
@@ -27,8 +25,8 @@ class App extends Component {
 					<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet" />
 				</Helmet>
 				<div className={container}>
-					<Screen Inputs={this.state.inputsArr} />
-					<Keypad AllInputs={INPUTS} AllOperators={OPERATORS} OnInput={this.handleClick} />
+					<Screen allInputs={this.state.inputsArr} />
+					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
 		);
@@ -36,3 +34,6 @@ class App extends Component {
 }
 
 export default App;
+
+const INPUTS = ['C', '<', '%', 7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '()', '.'];
+const OPERATORS = ['/', 'x', '-', '+', '='];

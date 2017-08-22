@@ -19,10 +19,10 @@ class Screen extends Component {
 		return (
 			<div className={container}>
 				<div className={displayAll}>
-					{this.props.Entries}
+					{this.props.allInputs}
 				</div>
 				<div className={displayEntry}>
-					{this.props.Entries[this.props.Entries.length - 1]}
+					{this.props.allInputs[this.props.allInputs.length - 1]}
 				</div>
 			</div>
 		);
