@@ -7,7 +7,7 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [], currentOperator: '', allEntries: [], toggleParenthesis: true };
+		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true };
 		this.handleClick = this.handleClick.bind(this);
 	}
 
@@ -30,10 +30,13 @@ class App extends Component {
 			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
 
 			if (OPERATORS.includes(anInput)) {
-				this.setState(prevState => ({
-					allEntries: [...prevState.allEntries, inputsArr, anInput],
-					inputsArr: []
-				}));
+				anInput === '='
+					? this.setState({})
+					: this.setState(prevState => ({
+							allEntries: [...prevState.allEntries, inputsArr, anInput],
+							inputsArr: []
+						}));
+				console.log(inputsArr);
 			} else if (anInput === 'C') {
 				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true });
 			} else if (anInput === 'CE') {

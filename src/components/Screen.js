@@ -3,13 +3,18 @@ import style from 'styles/Screen.css';
 
 const Screen = props => {
 	const { container, displayAll, displayEntry } = style;
+	const { anEntry, entries } = props;
+	var initialEntry = [0];
+	if (anEntry.length) {
+		initialEntry = anEntry;
+	}
 	return (
 		<div className={container}>
 			<div className={displayAll}>
-				{props.entries}
+				{entries}
 			</div>
 			<div className={displayEntry}>
-				{props.anEntry}
+				{initialEntry}
 			</div>
 		</div>
 	);
