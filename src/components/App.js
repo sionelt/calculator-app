@@ -16,8 +16,10 @@ class App extends Component {
 		this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
 		console.log(this.state.inputsArr);
 	}
+
 	handleOperatorClick(anOperator) {
-		this.setState({ currrentOperator: anOperator });
+		this.setState(() => ({ currentOperator: anOperator }));
+		console.log(this.state.currentOperator);
 	}
 
 	render() {
