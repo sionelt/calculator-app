@@ -21,11 +21,11 @@
 	cursor: pointer;
 	box-shadow: 0 0 0.5px 0 #000;
 }
-.aInput {
+.input {
 	composes: btn;
 	background-color: #c6c6cb;
 }
-.aOperator {
+.operator {
 	composes: btn;
 	background-color: #f68111;
 }
