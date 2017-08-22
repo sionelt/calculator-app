@@ -7,29 +7,46 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [], currentOperator: '', allEntries: [] };
+		this.state = { inputsArr: [], currentOperator: '', allEntries: [], toggleParenthesis: true };
 		this.handleClick = this.handleClick.bind(this);
 	}
 
 	handleClick(anInput) {
-		this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
-		if (OPERATORS.includes(anInput)) {
-			this.setState(prevState => ({
-				allEntries: [...prevState.allEntries, this.state.inputsArr, anInput],
-				inputsArr: []
-			}));
-		} else if (anInput === 'C') {
-			this.setState({ inputsArr: [], allEntries: [] });
-		} else if (anInput === 'CE') {
-			this.setState({ inputsArr: [] });
-		} else if (anInput === '%') {
-			this.setState({ inputsArr: parseFloat(this.state.inputsArr.join('')) / 100 });
+		const { inputsArr, toggleParenthesis } = this.state;
+
+		if (anInput === '( )') {
+			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr] }));
+
+			toggleParenthesis
+				? this.setState(prevState => ({
+						allEntries: [...prevState.allEntries, '('],
+						toggleParenthesis: false
+					}))
+				: this.setState(prevState => ({
+						allEntries: [...prevState.allEntries, inputsArr, ')'],
+						toggleParenthesis: true
+					}));
+		} else {
+			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
+
+			if (OPERATORS.includes(anInput)) {
+				this.setState(prevState => ({
+					allEntries: [...prevState.allEntries, inputsArr, anInput],
+					inputsArr: []
+				}));
+			} else if (anInput === 'C') {
+				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true });
+			} else if (anInput === 'CE') {
+				this.setState({ inputsArr: [], toggleParenthesis: true });
+			} else if (anInput === '%') {
+				this.setState({ inputsArr: parseFloat(inputsArr.join('')) / 100 });
+			}
 		}
 	}
 
 	render() {
 		const { demo, container } = style;
-		const { inputsArr, currentOperator, allEntries } = this.state;
+		const { inputsArr, allEntries } = this.state;
 		return (
 			<div className={demo}>
 				<Helmet>
