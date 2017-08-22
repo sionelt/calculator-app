@@ -20,6 +20,8 @@ class App extends Component {
 			}));
 		} else if (anInput === 'C') {
 			this.setState({ inputsArr: [], allEntries: [] });
+		} else if (anInput === 'CE') {
+			this.setState({ inputsArr: [] });
 		}
 	}
 
@@ -43,5 +45,5 @@ class App extends Component {
 
 export default App;
 
-const INPUTS = ['C', '<', '%', 7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '( )', '.'];
+const INPUTS = ['C', 'CE', '%', 7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '( )', '.'];
 const OPERATORS = ['/', 'x', '-', '+', '='];
