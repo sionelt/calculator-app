@@ -7,17 +7,22 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [] };
-		this.handleClick = this.handleClick.bind(this);
+		this.state = { inputsArr: [], currentOperator: '' };
+		this.handleInputClick = this.handleInputClick.bind(this);
+		this.handleOperatorClick = this.handleOperatorClick.bind(this);
 	}
 
-	handleClick(anInput) {
+	handleInputClick(anInput) {
 		this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
 		console.log(this.state.inputsArr);
+	}
+	handleOperatorClick(anOperator) {
+		this.setState({ currrentOperator: anOperator });
 	}
 
 	render() {
 		const { demo, container } = style;
+		const { inputsArr, currentOperator } = this.state;
 		return (
 			<div className={demo}>
 				<Helmet>
@@ -25,8 +30,13 @@ class App extends Component {
 					<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet" />
 				</Helmet>
 				<div className={container}>
-					<Screen allInputs={this.state.inputsArr} />
-					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
+					<Screen allInputs={inputsArr} runOperator={currentOperator} />
+					<Keypad
+						inputKeys={INPUTS}
+						operatorKeys={OPERATORS}
+						onInput={this.handleInputClick}
+						onOperator={this.handleOperatorClick}
+					/>
 				</div>
 			</div>
 		);

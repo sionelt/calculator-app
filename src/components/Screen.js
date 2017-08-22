@@ -7,11 +7,7 @@ class Screen extends Component {
 		this.state = { anEntry: '', allEntries: '' };
 	}
 
-	componentDidMount() {
-		this.setState(prevState => {
-			return { allEntries: prevState.allEntries + this.props.display };
-		});
-	}
+
 
 	render() {
 		const { container, displayAll, displayEntry } = style;
