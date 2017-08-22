@@ -10,10 +10,11 @@
 .display {
 	display: flex;
 	justify-content: flex-end;
-	text-overflow: scale;
+	align-items: flex-end;
 }
 .displayAll {
 	composes: display;
+	text-overflow: ellipsis;
 }
 
 .displayEntry {

@@ -3,7 +3,7 @@ import style from 'styles/Keypad.css';
 
 const Keypad = props => {
 	const { container, inputs, input, operators, operator } = style;
-	const { inputKeys, operatorKeys, onInput, onOperator } = props;
+	const { inputKeys, operatorKeys, onInput } = props;
 	return (
 		<div className={container}>
 			<ul className={inputs}>
@@ -15,7 +15,7 @@ const Keypad = props => {
 			</ul>
 			<ul className={operators}>
 				{operatorKeys.map(anOperator =>
-					<li key={anOperator} className={operator} onClick={() => onOperator(anOperator)}>
+					<li key={anOperator} className={operator} onClick={() => onInput(anOperator)}>
 						{anOperator}
 					</li>
 				)}
