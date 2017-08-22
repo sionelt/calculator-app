@@ -36,13 +36,13 @@ class App extends Component {
 							allEntries: [...prevState.allEntries, inputsArr, anInput],
 							inputsArr: []
 						}));
-				console.log(inputsArr);
 			} else if (anInput === 'C') {
 				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true });
 			} else if (anInput === 'CE') {
 				this.setState({ inputsArr: [], toggleParenthesis: true });
 			} else if (anInput === '%') {
-				this.setState({ inputsArr: parseFloat(inputsArr.join('')) / 100 });
+				this.setState({ inputsArr: [parseFloat(inputsArr.join('')) / 100] });
+				console.log(inputsArr);
 			}
 		}
 	}
