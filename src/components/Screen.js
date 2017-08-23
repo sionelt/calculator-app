@@ -32,10 +32,10 @@ class Screen extends Component {
 
 		return (
 			<div className={container}>
-				<div className={topDisplay} style={textDirection}>
+				<div className={topDisplay}>
 					{overflowLeft}
-					<div id="top" className={displayAll}>
-						{entries}&lrm;
+					<div id="top" className={displayAll} style={textDirection}>
+						{entries}
 					</div>
 					{overflowRight}
 				</div>

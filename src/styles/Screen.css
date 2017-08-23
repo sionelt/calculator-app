@@ -16,6 +16,7 @@
 	display: flex;
 }
 .displayAll {
+	display: flex;
 	overflow-y: hidden;
 	overflow-x: scroll;
 }
