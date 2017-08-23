@@ -30,6 +30,13 @@ class App extends Component {
 		this.setState(prevState => ({
 			inputsArr: [...prevState.inputsArr, this.state.keyPress]
 		}));
+
+		if (OPERATORS.includes(this.state.keyPress)) {
+			this.setState(prevState => ({
+				allEntries: [...prevState.allEntries, this.state.inputsArr],
+				inputsArr: []
+			}));
+		}
 		console.log(event.which);
 		console.log(uniCode);
 	}
