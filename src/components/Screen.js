@@ -8,7 +8,7 @@ class Screen extends Component {
 	}
 
 	render() {
-		const { container, displayAll, displayEntry } = style;
+		const { container, displayAll, displayEntry, btn } = style;
 		const { anEntry, entries } = this.props;
 		var initialEntry = [0];
 
@@ -18,7 +18,9 @@ class Screen extends Component {
 		return (
 			<div className={container}>
 				<div id="top" className={displayAll}>
+					<button className={btn}>&lsaquo;</button>
 					{entries}
+					<button className={btn}>&rsaquo;</button>
 				</div>
 				<div className={displayEntry}>
 					{initialEntry}

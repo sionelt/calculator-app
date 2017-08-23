@@ -27,13 +27,6 @@ div {
 	max-width: 100%;
 }
 
-nav,
-a,
-button {
-	min-width: 48px;
-	min-height: auto;
-}
-
 a {
 	text-decoration: none;
 }
