@@ -7,7 +7,7 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null, keyPress: 0 };
+		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null, keyPress: null };
 		this.handleClick = this.handleClick.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
@@ -21,24 +21,33 @@ class App extends Component {
 	}
 
 	handleKeyPress(event) {
+		// const { keyPress, inputsArr } = this.state;
+		let uniCode = 0,
+			toggleX = '',
+			wrongKey = '';
+
 		event.preventDefault();
 
-		let uniCode = 0;
 		event.which > 95 && event.which < 106 ? (uniCode = event.which - 48) : (uniCode = event.which - 64);
 
 		this.setState({ keyPress: String.fromCharCode(uniCode) });
+
+		this.state.keyPress === '*' ? (toggleX = 'x') : (toggleX = this.state.keyPress);
+
 		this.setState(prevState => ({
-			inputsArr: [...prevState.inputsArr, this.state.keyPress]
+			inputsArr: [...prevState.inputsArr, toggleX]
 		}));
 
-		if (OPERATORS.includes(this.state.keyPress)) {
+		if (OPERATORS.includes(toggleX)) {
 			this.setState(prevState => ({
 				allEntries: [...prevState.allEntries, this.state.inputsArr],
 				inputsArr: []
 			}));
+		} else {
+			if (!INPUTS.includes(toggleX)) {
+				this.setState({ allEntries: 'INVALID INPUT!', inputsArr: [0], keyPress: null });
+			}
 		}
-		console.log(event.which);
-		console.log(uniCode);
 	}
 
 	handleClick(anInput) {
