@@ -12,7 +12,10 @@ class Screen extends Component {
 		const { anEntry, entries, overflow } = this.props;
 		let initialEntry = [0];
 		let overflowLeft = null,
-			overflowRight = null;
+			overflowRight = null,
+			textDirection = {
+				paddingRight: '10px'
+			};
 
 		if (anEntry.length) {
 			initialEntry = anEntry;
@@ -21,14 +24,18 @@ class Screen extends Component {
 		if (overflow > 270) {
 			overflowLeft = <a className={btn}>&lsaquo;</a>;
 			overflowRight = <a className={btn}>&rsaquo;</a>;
+			textDirection = {
+				paddingRight: '0',
+				direction: 'rtl'
+			};
 		}
 
 		return (
 			<div className={container}>
-				<div className={topDisplay}>
+				<div className={topDisplay} style={textDirection}>
 					{overflowLeft}
 					<div id="top" className={displayAll}>
-						{entries}
+						{entries}&lrm;
 					</div>
 					{overflowRight}
 				</div>

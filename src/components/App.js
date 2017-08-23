@@ -33,12 +33,10 @@ class App extends Component {
 			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
 
 			if (OPERATORS.includes(anInput)) {
-				anInput === '='
-					? this.setState({})
-					: this.setState(prevState => ({
-							allEntries: [...prevState.allEntries, inputsArr, anInput],
-							inputsArr: []
-						}));
+				this.setState(prevState => ({
+					allEntries: [...prevState.allEntries, inputsArr, anInput],
+					inputsArr: []
+				}));
 			} else if (anInput === 'C') {
 				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null });
 			} else if (anInput === 'CE') {

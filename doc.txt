@@ -25,3 +25,6 @@ The array.length condition checks whether the variable's length property evaluat
 
 6.auto scroll to end of the top view when overflow:
 overflow-x scroll and direction: rtl meaning right to left.
+
+7.characters in top entries move to front:
+insert RLM - Right-to-Left Mark &lrm; a non printing character at the end of the top entries, which change direction of non alphanumeric characters back to normal flow.
