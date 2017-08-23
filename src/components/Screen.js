@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
 import style from 'styles/Screen.css';
 
-const Screen = props => {
-	const { container, displayAll, displayEntry } = style;
-	const { anEntry, entries } = props;
-	var initialEntry = [0];
-	if (anEntry.length) {
-		initialEntry = anEntry;
+class Screen extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { top: null };
 	}
-	return (
-		<div className={container}>
-			<div className={displayAll}>
-				{entries}
+	componentDidMount() {
+		const length = document.getElementById('top');
+		this.setState({ top: length.scrollWidth });
+		const width = length.scrollWidth;
+	}
+
+	render() {
+		const { container, displayAll, displayEntry } = style;
+		const { anEntry, entries } = this.props;
+		var initialEntry = [0];
+		console.log(this.state.top);
+		if (anEntry.length) {
+			initialEntry = anEntry;
+		}
+		return (
+			<div className={container}>
+				<div id="top" className={displayAll}>
+					{entries}
+				</div>
+				<div className={displayEntry}>
+					{initialEntry}
+				</div>
 			</div>
-			<div className={displayEntry}>
-				{initialEntry}
-			</div>
-		</div>
-	);
-};
+		);
+	}
+}
 
 export default Screen;
 

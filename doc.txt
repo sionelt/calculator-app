@@ -1,0 +1,27 @@
+1.responsive screeen in mobile:
+media queries
+
+2.border less than 1px:
+box shadow
+
+3.shrink display all to fit screen as digit increases:
+use function to watch when to shrink
+
+4. update parent state from children:
+pass parent method to child and modify state from there
+
+5.passing props to initial state:
+use componentWillRecieveProps
+
+6.check for empty array:
+if (!Array.isArray(array) || !array.length) {
+  // array does not exist, is not an array, or is empty
+}
+To break it down:
+
+Array.isArray(), unsurprisingly, checks whether its argument is an array. This weeds out values like null, undefined and anything else that is not an array.
+Note that this will also eliminate array-like objects, such as the arguments object and DOM NodeList objects. Depending on your situation, this might not be the behavior you're after.
+The array.length condition checks whether the variable's length property evaluates to a truthy value. Because the previous condition already established that we are indeed dealing with an array, more strict comparisons like array.length != 0 or array.length !== 0 are not required here.
+
+6.auto scroll to end of the top view when overflow:
+display flex the view container and justify content to flow end.

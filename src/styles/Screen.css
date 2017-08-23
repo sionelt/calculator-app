@@ -6,18 +6,31 @@
 	background-color: #010001;
 	box-shadow: 0 0 0.5px 0 #000;
 	color: #f4f4f4;
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: flex-end;
 }
-.displayAll {
 
-	text-overflow: ellipsis;
+.display {
+	display: flex;
+	justify-content: flex-end;
+}
+.displayAll {
+	composes: display;
+	overflow-y: hidden;
+	overflow-x: scroll;
+	text-align: right;
+}
+.displayAll::-webkit-scrollbar {
+	width: 0 !important;
+	display: none;
 }
 
 .displayEntry {
-
+	composes: display;
 	font-size: 2.5em;
 	font-weight: 200;
+	float: left;
 }
