@@ -22,10 +22,16 @@ class App extends Component {
 
 	handleKeyPress(event) {
 		event.preventDefault();
-		this.setState({ keyPress: String.fromCharCode(event.which - 48) });
+
+		let uniCode = 0;
+		event.which > 95 && event.which < 106 ? (uniCode = event.which - 48) : (uniCode = event.which - 64);
+
+		this.setState({ keyPress: String.fromCharCode(uniCode) });
 		this.setState(prevState => ({
 			inputsArr: [...prevState.inputsArr, this.state.keyPress]
 		}));
+		console.log(event.which);
+		console.log(uniCode);
 	}
 
 	handleClick(anInput) {
