@@ -2,7 +2,7 @@
 	height: 160px;
 	min-height: 160px;
 	width: 100%;
-	padding: 30px 10px 0;
+	padding: 30px 0 0;
 	background-color: #010001;
 	box-shadow: 0 0 0.5px 0 #000;
 	color: #f4f4f4;
@@ -12,9 +12,13 @@
 	justify-content: flex-end;
 	align-items: flex-end;
 }
+.topDisplay {
+	display: flex;
+}
 
 .display {
 	direction: rtl;
+	min-height: min-content;
 }
 .displayAll {
 	composes: display;
@@ -30,14 +34,25 @@
 	composes: display;
 	font-size: 2.5em;
 	font-weight: 200;
+	padding: 0 10px;
 }
 
 .btn {
+	display: inline;
+	padding: 0 5px;
 	background-color: transparent;
-	color: #c6c6cb;
+	color: #f68111;
 	border: none;
 	font-size: 30px;
 	align-items: center;
 	text-align: center;
 	cursor: pointer;
+}
+
+.btn:focus {
+	outline: 0;
+}
+
+.btn:hover {
+	color: #fff;
 }

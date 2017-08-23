@@ -8,19 +8,29 @@ class Screen extends Component {
 	}
 
 	render() {
-		const { container, displayAll, displayEntry, btn } = style;
-		const { anEntry, entries } = this.props;
-		var initialEntry = [0];
+		const { container, topDisplay, displayAll, displayEntry, btn } = style;
+		const { anEntry, entries, overflow } = this.props;
+		let initialEntry = [0];
+		let overflowLeft = null,
+			overflowRight = null;
 
 		if (anEntry.length) {
 			initialEntry = anEntry;
 		}
+
+		if (overflow > 270) {
+			overflowLeft = <a className={btn}>&lsaquo;</a>;
+			overflowRight = <a className={btn}>&rsaquo;</a>;
+		}
+
 		return (
 			<div className={container}>
-				<div id="top" className={displayAll}>
-					<button className={btn}>&lsaquo;</button>
-					{entries}
-					<button className={btn}>&rsaquo;</button>
+				<div className={topDisplay}>
+					{overflowLeft}
+					<div id="top" className={displayAll}>
+						{entries}
+					</div>
+					{overflowRight}
 				</div>
 				<div className={displayEntry}>
 					{initialEntry}

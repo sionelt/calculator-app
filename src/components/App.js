@@ -7,14 +7,15 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true };
+		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null };
 		this.handleClick = this.handleClick.bind(this);
 	}
 
 	handleClick(anInput) {
 		const { inputsArr, toggleParenthesis } = this.state;
-		var top = document.getElementById('top').scrollWidth;
-		console.log(top);
+		const topWidth = document.getElementById('top').scrollWidth;
+		console.log(topWidth);
+		this.setState({ scrollLength: topWidth });
 
 		if (anInput === '( )') {
 			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr] }));
@@ -39,7 +40,7 @@ class App extends Component {
 							inputsArr: []
 						}));
 			} else if (anInput === 'C') {
-				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true });
+				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null });
 			} else if (anInput === 'CE') {
 				this.setState({ inputsArr: [], toggleParenthesis: true });
 			} else if (anInput === '%') {
@@ -50,7 +51,7 @@ class App extends Component {
 
 	render() {
 		const { demo, container } = style;
-		const { inputsArr, allEntries } = this.state;
+		const { inputsArr, allEntries, scrollLength } = this.state;
 		return (
 			<div className={demo}>
 				<Helmet>
@@ -58,7 +59,7 @@ class App extends Component {
 					<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet" />
 				</Helmet>
 				<div className={container}>
-					<Screen anEntry={inputsArr} entries={allEntries} />
+					<Screen anEntry={inputsArr} entries={allEntries} overflow={scrollLength} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
