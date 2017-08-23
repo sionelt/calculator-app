@@ -35,7 +35,7 @@ class Screen extends Component {
 				<div className={topDisplay}>
 					{overflowLeft}
 					<div id="top" className={displayAll} style={textDirection}>
-						{entries}
+						{entries}&lrm;
 					</div>
 					{overflowRight}
 				</div>

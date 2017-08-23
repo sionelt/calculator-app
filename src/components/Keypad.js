@@ -3,7 +3,7 @@ import style from 'styles/Keypad.css';
 
 const Keypad = props => {
 	const { container, inputs, input, operators, operator } = style;
-	const { inputKeys, operatorKeys, onInput } = props;
+	const { inputKeys, operatorKeys, onInput, onKeyDown } = props;
 	return (
 		<div className={container}>
 			<ul className={inputs}>

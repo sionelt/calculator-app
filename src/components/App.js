@@ -7,14 +7,31 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null };
+		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null, keyPress: 0 };
 		this.handleClick = this.handleClick.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
+	}
+
+	componentWillMount() {
+		document.addEventListener('keydown', this.handleKeyPress);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeyPress);
+	}
+
+	handleKeyPress(event) {
+		event.preventDefault();
+		this.setState({ keyPress: String.fromCharCode(event.which - 48) });
+		this.setState(prevState => ({
+			inputsArr: [...prevState.inputsArr, this.state.keyPress]
+		}));
 	}
 
 	handleClick(anInput) {
-		const { inputsArr, toggleParenthesis } = this.state;
+		const { inputsArr, keyPress, toggleParenthesis } = this.state;
+
 		const topWidth = document.getElementById('top').scrollWidth;
-		console.log(topWidth);
 		this.setState({ scrollLength: topWidth });
 
 		if (anInput === '( )') {
@@ -38,9 +55,9 @@ class App extends Component {
 					inputsArr: []
 				}));
 			} else if (anInput === 'C') {
-				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null });
+				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null, keyPress: 0 });
 			} else if (anInput === 'CE') {
-				this.setState({ inputsArr: [], toggleParenthesis: true });
+				this.setState({ inputsArr: [], toggleParenthesis: true, keyPress: null });
 			} else if (anInput === '%') {
 				this.setState({ inputsArr: [parseFloat(inputsArr.join('')) / 100] });
 			}
@@ -58,7 +75,7 @@ class App extends Component {
 				</Helmet>
 				<div className={container}>
 					<Screen anEntry={inputsArr} entries={allEntries} overflow={scrollLength} />
-					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
+					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} onKey={this.handleKeyPress} />
 				</div>
 			</div>
 		);

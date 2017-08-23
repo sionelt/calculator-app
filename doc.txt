@@ -9,6 +9,7 @@ use function to watch when to shrink
 
 4. update parent state from children:
 pass parent method to child and modify state from there
+... onClick={this.fun.bind(null,para)}
 
 5.passing props to initial state:
 use componentWillRecieveProps
