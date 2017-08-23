@@ -13,6 +13,8 @@ class App extends Component {
 
 	handleClick(anInput) {
 		const { inputsArr, toggleParenthesis } = this.state;
+		var top = document.getElementById('top').scrollWidth;
+		console.log(top);
 
 		if (anInput === '( )') {
 			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr] }));

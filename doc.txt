@@ -24,4 +24,4 @@ Note that this will also eliminate array-like objects, such as the arguments obj
 The array.length condition checks whether the variable's length property evaluates to a truthy value. Because the previous condition already established that we are indeed dealing with an array, more strict comparisons like array.length != 0 or array.length !== 0 are not required here.
 
 6.auto scroll to end of the top view when overflow:
-display flex the view container and justify content to flow end.
+overflow-x scroll and direction: rtl meaning right to left.

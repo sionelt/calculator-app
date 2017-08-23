@@ -11,17 +11,16 @@
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: flex-end;
+	flex: 1 1 auto;
 }
 
 .display {
-	display: flex;
-	justify-content: flex-end;
+	direction: rtl;
 }
 .displayAll {
 	composes: display;
 	overflow-y: hidden;
 	overflow-x: scroll;
-	text-align: right;
 }
 .displayAll::-webkit-scrollbar {
 	width: 0 !important;
@@ -32,5 +31,4 @@
 	composes: display;
 	font-size: 2.5em;
 	font-weight: 200;
-	float: left;
 }

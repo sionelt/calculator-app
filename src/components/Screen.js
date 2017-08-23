@@ -6,17 +6,12 @@ class Screen extends Component {
 		super(props);
 		this.state = { top: null };
 	}
-	componentDidMount() {
-		const length = document.getElementById('top');
-		this.setState({ top: length.scrollWidth });
-		const width = length.scrollWidth;
-	}
 
 	render() {
 		const { container, displayAll, displayEntry } = style;
 		const { anEntry, entries } = this.props;
 		var initialEntry = [0];
-		console.log(this.state.top);
+
 		if (anEntry.length) {
 			initialEntry = anEntry;
 		}
