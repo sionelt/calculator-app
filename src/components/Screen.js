@@ -13,6 +13,7 @@ class Screen extends Component {
 		let initialEntry = [0];
 		let overflowLeft = null,
 			overflowRight = null,
+			shrinkToFit = {},
 			textDirection = {
 				paddingRight: '10px'
 			};
@@ -30,6 +31,14 @@ class Screen extends Component {
 			};
 		}
 
+		if (initialEntry.length > 7) {
+			shrinkToFit = {
+				fontSize: '2em',
+				paddingTop: '17px'
+			};
+			initialEntry.splice(9);
+		}
+
 		return (
 			<div className={container}>
 				<div className={topDisplay}>
@@ -39,7 +48,7 @@ class Screen extends Component {
 					</div>
 					{overflowRight}
 				</div>
-				<div className={displayEntry}>
+				<div className={displayEntry} style={shrinkToFit}>
 					{initialEntry}
 				</div>
 			</div>
