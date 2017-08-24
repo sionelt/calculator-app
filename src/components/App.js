@@ -52,7 +52,8 @@ class App extends Component {
 
 	handleDisplayWidth() {
 		const topWidth = document.getElementById('top').scrollWidth;
-		this.setState({ scrollLength: topWidth });
+		const bottomWidth = document.getElementById('bottom').scrollWidth;
+		this.setState({ scrollLength: topWidth + bottomWidth });
 	}
 
 	render() {

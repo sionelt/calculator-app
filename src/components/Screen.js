@@ -7,18 +7,18 @@ class Screen extends Component {
 		this.scrollLeft = this.scrollLeft.bind(this);
 		this.scrollRight = this.scrollRight.bind(this);
 	}
-	scrollLeft(textDirection) {
-		const top = document.getElementById('top');
-		top.scrollLeft = 0;
+
+	scrollLeft() {
+		TOP_SCROLL.scrollLeft = 0;
 	}
-	scrollRight(textDirection) {
-		const top = document.getElementById('top');
-		top.scrollLeft = 300;
+	scrollRight() {
+		TOP_SCROLL.scrollLeft = 10000;
 	}
 
 	render() {
 		const { container, topDisplay, displayAll, displayEntry, btn } = style;
 		const { anEntry, entries, overflow } = this.props;
+
 		let initialEntry = [0],
 			overflowLeft = null,
 			overflowRight = null,
@@ -27,18 +27,20 @@ class Screen extends Component {
 				paddingRight: '10px'
 			};
 
+		/*---SET INITIAL BOTTOM DISPLAY TO ZERO WHEN C OR CE---*/
 		if (anEntry.length) {
 			initialEntry = anEntry;
 		}
 
-		if (overflow > 270) {
+		/*---TOP DISPLAY TO OVERFLOW SCROLL WITH ARROW BUTTONS WHEN ENTRIES > SCREEN WIDTH---*/
+		if (overflow > 480) {
 			overflowLeft = (
-				<a className={btn} onClick={() => this.scrollLeft(textDirection)}>
+				<a className={btn} onClick={this.scrollLeft}>
 					&lsaquo;
 				</a>
 			);
 			overflowRight = (
-				<a className={btn} onClick={() => this.scrollRight(textDirection)}>
+				<a className={btn} onClick={this.scrollRight}>
 					&rsaquo;
 				</a>
 			);
@@ -48,6 +50,7 @@ class Screen extends Component {
 			};
 		}
 
+		/*---SHRINK BOTTOM DISPLAY TO FIT AND LIMIT TO ONLY 9 DIGITS---*/
 		if (initialEntry.length > 6) {
 			shrinkToFit = {
 				fontSize: '1.83em',
@@ -66,7 +69,7 @@ class Screen extends Component {
 					</div>
 					{overflowRight}
 				</div>
-				<div className={displayEntry} style={shrinkToFit}>
+				<div id="bottom" className={displayEntry} style={shrinkToFit}>
 					{initialEntry}
 				</div>
 			</div>
@@ -75,6 +78,8 @@ class Screen extends Component {
 }
 
 export default Screen;
+
+const TOP_SCROLL = document.getElementById('top');
 
 /*TODO:
 *** - enable scroll arrows
