@@ -45,7 +45,7 @@ class App extends Component {
 			} else if (anInput === 'CE') {
 				this.setState({ inputsArr: [], toggleParenthesis: true, keyPress: null });
 			} else if (anInput === '%') {
-				this.setState({ inputsArr: [parseFloat(inputsArr.join('')) / 100] });
+				this.setState({ inputsArr: (parseFloat(inputsArr.join('')) / 100).toString().split('') });
 			}
 		}
 	}
