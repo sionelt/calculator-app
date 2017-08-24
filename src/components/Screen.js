@@ -4,21 +4,17 @@ import style from 'styles/Screen.css';
 class Screen extends Component {
 	constructor(props) {
 		super(props);
-		// this.scrollLeft = this.scrollLeft.bind(this);
-		// this.scrollRight = this.scrollRight.bind(this);
+		this.scrollLeft = this.scrollLeft.bind(this);
+		this.scrollRight = this.scrollRight.bind(this);
 	}
-	// scrollLeft(textDirection) {
-	// 	textDirection = {
-	// 		paddingRight: '0',
-	// 		direction: 'ltr'
-	// 	};
-	// }
-	// scrollRight(textDirection) {
-	// 	textDirection = {
-	// 		paddingRight: '0',
-	// 		direction: 'rtl'
-	// 	};
-	// }
+	scrollLeft(textDirection) {
+		const top = document.getElementById('top');
+		top.scrollLeft = 0;
+	}
+	scrollRight(textDirection) {
+		const top = document.getElementById('top');
+		top.scrollLeft = 300;
+	}
 
 	render() {
 		const { container, topDisplay, displayAll, displayEntry, btn } = style;
@@ -36,8 +32,16 @@ class Screen extends Component {
 		}
 
 		if (overflow > 270) {
-			overflowLeft = <a className={btn} /*onClick={() => this.scrollLeft(textDirection)}*/>&lsaquo;</a>;
-			overflowRight = <a className={btn} /*onClick={() => this.scrollRight(textDirection)}*/>&rsaquo;</a>;
+			overflowLeft = (
+				<a className={btn} onClick={() => this.scrollLeft(textDirection)}>
+					&lsaquo;
+				</a>
+			);
+			overflowRight = (
+				<a className={btn} onClick={() => this.scrollRight(textDirection)}>
+					&rsaquo;
+				</a>
+			);
 			textDirection = {
 				paddingRight: '0',
 				direction: 'rtl'
@@ -50,7 +54,7 @@ class Screen extends Component {
 				paddingTop: '25px'
 			};
 
-			isNaN(parseInt(initialEntry[initialEntry.length - 1], 10)) ? initialEntry.splice(9) : initialEntry.splice(10);
+			isNaN(parseInt(initialEntry[initialEntry.length - 1], 10)) ? initialEntry.splice(10) : initialEntry.splice(9);
 		}
 
 		return (

@@ -9,7 +9,6 @@ class App extends Component {
 		super();
 		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null };
 		this.handleClick = this.handleClick.bind(this);
-		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.handleDisplayWidth = this.handleDisplayWidth.bind(this);
 	}
 
@@ -25,11 +24,13 @@ class App extends Component {
 			toggleParenthesis
 				? this.setState(prevState => ({
 						allEntries: [...prevState.allEntries, '('],
-						toggleParenthesis: false
+						toggleParenthesis: false,
+						inputsArr: []
 					}))
 				: this.setState(prevState => ({
 						allEntries: [...prevState.allEntries, inputsArr, ')'],
-						toggleParenthesis: true
+						toggleParenthesis: true,
+						inputsArr: []
 					}));
 		} else {
 			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
@@ -75,4 +76,4 @@ class App extends Component {
 export default App;
 
 const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '( )', '.'];
-const OPERATORS = ['/', 'x', '-', '+', '='];
+const OPERATORS = ['÷', 'x', '-', '+', '='];
