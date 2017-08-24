@@ -4,14 +4,27 @@ import style from 'styles/Screen.css';
 class Screen extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { top: null };
+		// this.scrollLeft = this.scrollLeft.bind(this);
+		// this.scrollRight = this.scrollRight.bind(this);
 	}
+	// scrollLeft(textDirection) {
+	// 	textDirection = {
+	// 		paddingRight: '0',
+	// 		direction: 'ltr'
+	// 	};
+	// }
+	// scrollRight(textDirection) {
+	// 	textDirection = {
+	// 		paddingRight: '0',
+	// 		direction: 'rtl'
+	// 	};
+	// }
 
 	render() {
 		const { container, topDisplay, displayAll, displayEntry, btn } = style;
 		const { anEntry, entries, overflow } = this.props;
-		let initialEntry = [0];
-		let overflowLeft = null,
+		let initialEntry = [0],
+			overflowLeft = null,
 			overflowRight = null,
 			shrinkToFit = {},
 			textDirection = {
@@ -23,20 +36,21 @@ class Screen extends Component {
 		}
 
 		if (overflow > 270) {
-			overflowLeft = <a className={btn}>&lsaquo;</a>;
-			overflowRight = <a className={btn}>&rsaquo;</a>;
+			overflowLeft = <a className={btn} /*onClick={() => this.scrollLeft(textDirection)}*/>&lsaquo;</a>;
+			overflowRight = <a className={btn} /*onClick={() => this.scrollRight(textDirection)}*/>&rsaquo;</a>;
 			textDirection = {
 				paddingRight: '0',
 				direction: 'rtl'
 			};
 		}
 
-		if (initialEntry.length > 7) {
+		if (initialEntry.length > 6) {
 			shrinkToFit = {
-				fontSize: '2em',
-				paddingTop: '17px'
+				fontSize: '1.83em',
+				paddingTop: '25px'
 			};
-			initialEntry.splice(9);
+
+			isNaN(parseInt(initialEntry[initialEntry.length - 1], 10)) ? initialEntry.splice(9) : initialEntry.splice(10);
 		}
 
 		return (
@@ -59,6 +73,6 @@ class Screen extends Component {
 export default Screen;
 
 /*TODO:
-*** - function to control the shrink of display entry when reached 6 digit
-*** - function to control text-flow: ecllipse of display all
+*** - enable scroll arrows
+*** - 
 */

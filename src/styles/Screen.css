@@ -28,6 +28,7 @@
 	font-size: 2.5em;
 	font-weight: 200;
 	padding: 0 10px;
+	direction: rtl;
 }
 .btn {
 	display: inline;

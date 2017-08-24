@@ -7,54 +7,17 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null, keyPress: null };
+		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null };
 		this.handleClick = this.handleClick.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
+		this.handleDisplayWidth = this.handleDisplayWidth.bind(this);
 	}
 
-	componentWillMount() {
-		document.addEventListener('keydown', this.handleKeyPress);
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener('keydown', this.handleKeyPress);
-	}
-
-	handleKeyPress(event) {
-		// const { keyPress, inputsArr } = this.state;
-		let uniCode = 0,
-			toggleX = '',
-			wrongKey = '';
-
-		event.preventDefault();
-
-		event.which > 95 && event.which < 106 ? (uniCode = event.which - 48) : (uniCode = event.which - 64);
-
-		this.setState({ keyPress: String.fromCharCode(uniCode) });
-
-		this.state.keyPress === '*' ? (toggleX = 'x') : (toggleX = this.state.keyPress);
-
-		this.setState(prevState => ({
-			inputsArr: [...prevState.inputsArr, toggleX]
-		}));
-
-		if (OPERATORS.includes(toggleX)) {
-			this.setState(prevState => ({
-				allEntries: [...prevState.allEntries, this.state.inputsArr],
-				inputsArr: []
-			}));
-		} else {
-			if (!INPUTS.includes(toggleX)) {
-				this.setState({ allEntries: 'INVALID INPUT!', inputsArr: [0], keyPress: null });
-			}
-		}
-	}
-
+	/*--CLICK HANDLER-------------------------------------------------------------*/
 	handleClick(anInput) {
 		const { inputsArr, keyPress, toggleParenthesis } = this.state;
 
-		const topWidth = document.getElementById('top').scrollWidth;
-		this.setState({ scrollLength: topWidth });
+		this.handleDisplayWidth();
 
 		if (anInput === '( )') {
 			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr] }));
@@ -86,18 +49,23 @@ class App extends Component {
 		}
 	}
 
+	handleDisplayWidth() {
+		const topWidth = document.getElementById('top').scrollWidth;
+		this.setState({ scrollLength: topWidth });
+	}
+
 	render() {
 		const { demo, container } = style;
 		const { inputsArr, allEntries, scrollLength } = this.state;
 		return (
 			<div className={demo}>
 				<Helmet>
-					<title>improved clone iphone calculator</title>
+					<title>personalized clone iphone calculator</title>
 					<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet" />
 				</Helmet>
 				<div className={container}>
 					<Screen anEntry={inputsArr} entries={allEntries} overflow={scrollLength} />
-					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} onKey={this.handleKeyPress} />
+					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
 		);
