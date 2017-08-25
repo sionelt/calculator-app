@@ -19,8 +19,8 @@ class Screen extends Component {
 		const { container, topDisplay, displayAll, displayEntry, btn } = style;
 		const { entry, entries, overflow, evaluate } = this.props;
 
-		let topEntries = entries,
-			bottomEntry = '0',
+		let topEntries = '',
+			bottomEntry = '',
 			calculation = 0,
 			overflowLeft = null,
 			overflowRight = null,
@@ -29,15 +29,11 @@ class Screen extends Component {
 				paddingRight: '10px'
 			};
 
-		/*---SET INITIAL BOTTOM DISPLAY TO ZERO WHEN C OR CE---*/
-		if (entry) {
-			bottomEntry = entry;
-		}
+		// set reset display to 0 when C or CE.
+		entry ? (bottomEntry = entry) : (bottomEntry = '0');
 
-		switch (true) {
-			case OPERATORS_EXCEPT_MINUS.includes(topEntries[0]):
-				topEntries = 'invalid input';
-		}
+		// display invalid if operators is input incorrectly.
+		OPERATORS_EXCEPT_MINUS.includes(topEntries[0]) ? (topEntries = 'invalid input') : (topEntries = entries);
 
 		if (overflow > 480) {
 			/*---TOP DISPLAY TO OVERFLOW SCROLL WITH ARROW BUTTONS WHEN ENTRIES > SCREEN WIDTH---*/
