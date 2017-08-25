@@ -77,16 +77,16 @@ class App extends Component {
 					this.setState(prevState => ({
 						displayAllEntries: '',
 						displayAnEntry: eval(
-							(prevState.displayAllEntries + displayAnEntry).replace('x', '*').replace('÷', '/')
-						).toString(),
+							(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
+						).toLocaleString(),
 						anEntry: ''
 					}));
 				} else {
 					this.setState(prevState => ({
 						displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput,
 						displayAnEntry: eval(
-							(prevState.displayAllEntries + displayAnEntry).replace('x', '*').replace('÷', '/')
-						).toString(),
+							(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
+						).toLocaleString(),
 						anEntry: ''
 					}));
 
