@@ -107,7 +107,7 @@ class App extends Component {
 		return (
 			<div className={demo}>
 				<div className={container}>
-					<Screen entry={displayAnEntry} entries={displayAllEntries} overflow={scrollLength} />
+					<Screen entry={displayAnEntry} entries={displayAllEntries} operators={OPERATORS} overflow={scrollLength} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>

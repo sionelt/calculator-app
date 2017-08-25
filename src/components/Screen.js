@@ -17,9 +17,9 @@ class Screen extends Component {
 
 	render() {
 		const { container, topDisplay, displayAll, displayEntry, btn } = style;
-		const { entry, entries, overflow, evaluate } = this.props;
+		const { entry, entries, overflow, operators } = this.props;
 
-		let topEntries = '',
+		let topEntries = entries,
 			bottomEntry = '',
 			calculation = 0,
 			overflowLeft = null,
@@ -33,7 +33,7 @@ class Screen extends Component {
 		entry ? (bottomEntry = entry) : (bottomEntry = '0');
 
 		// display invalid if operators is input incorrectly.
-		OPERATORS_EXCEPT_MINUS.includes(topEntries[0]) ? (topEntries = 'invalid input') : (topEntries = entries);
+		operators.includes(topEntries[0]) ? (topEntries = 'invalid input') : (topEntries = entries);
 
 		if (overflow > 480) {
 			/*---TOP DISPLAY TO OVERFLOW SCROLL WITH ARROW BUTTONS WHEN ENTRIES > SCREEN WIDTH---*/
@@ -81,9 +81,3 @@ class Screen extends Component {
 export default Screen;
 
 const TOP_SCROLL = document.getElementById('top');
-const OPERATORS_EXCEPT_MINUS = ['÷', 'x', '+', '='];
-
-/*TODO:
-*** - enable scroll arrows
-*** - 
-*/
