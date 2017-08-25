@@ -11,10 +11,8 @@ class App extends Component {
 			anEntry: '',
 			displayAnEntry: '',
 			displayAllEntries: '',
-			evaluateEntries: '',
 			toggleParenthesis: true,
-			scrollLength: 0,
-			equalTo: 0
+			scrollLength: 0
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleDisplayWidth = this.handleDisplayWidth.bind(this);
@@ -22,7 +20,7 @@ class App extends Component {
 
 	/*--CLICK HANDLER-------------------------------------------------------------*/
 	handleClick(anInput) {
-		const { anEntry, displayAnEntry, displayAllEntries, evaluateEntries, equalTo, toggleParenthesis } = this.state;
+		const { anEntry, displayAnEntry, displayAllEntries, toggleParenthesis } = this.state;
 
 		this.handleDisplayWidth();
 
@@ -47,18 +45,15 @@ class App extends Component {
 				this.setState({
 					anEntry: '',
 					displayAnEntry: '',
-					evaluateEntries: '',
 					displayAllEntries: '',
 					toggleParenthesis: true,
-					scrollLength: 0,
-					equalTo: 0
+					scrollLength: 0
 				});
 			} else if (anInput === 'CE') {
 				this.setState({
 					anEntry: '',
 					displayAnEntry: '',
-					toggleParenthesis: true,
-					equalTo: false
+					toggleParenthesis: true
 				});
 			} else if (anInput === '%') {
 				this.setState(prevState => ({
@@ -67,30 +62,26 @@ class App extends Component {
 				}));
 			} else if (INPUTS.includes(anInput)) {
 				this.setState(prevState => ({
-					anEntry: prevState.anEntry.substr(0, 8) + anInput
+					anEntry: prevState.anEntry.substr(0, 8) + anInput // substr() limit an entry to 9 digits.
 				}));
+
+				// this setState sync the anEntry above.
 				this.setState(state => ({
-					displayAnEntry: parseFloat(state.anEntry).toLocaleString() // sync the anEntry above
+					displayAnEntry: parseFloat(state.anEntry).toLocaleString() // toLocaleString() format entries with comma.
 				}));
 			} else if (OPERATORS.includes(anInput)) {
 				if (anInput === '=') {
 					this.setState(prevState => ({
 						displayAllEntries: '',
-						displayAnEntry: eval(
-							(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
-						).toLocaleString(),
+						displayAnEntry: EVALUTION_EXPRESSION,
 						anEntry: ''
 					}));
 				} else {
 					this.setState(prevState => ({
 						displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput,
-						displayAnEntry: eval(
-							(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
-						).toLocaleString(),
+						displayAnEntry: EVALUATION_EXPRESSION,
 						anEntry: ''
 					}));
-
-					console.log(evaluateEntries);
 				}
 			}
 		}
@@ -124,3 +115,6 @@ export default App;
 
 const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '( )', '.'];
 const OPERATORS = ['÷', 'x', '-', '+', '='];
+const EVALUATE_EXPRESSION = eval(
+	(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
+).toLocaleString();
