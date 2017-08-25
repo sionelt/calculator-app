@@ -58,12 +58,11 @@ class App extends Component {
 				});
 			} else if (anInput === '%') {
 				this.setState(prevState => ({
-					displayAllEntries: prevState.displayAllEntries + (parseFloat(anEntry) / 100).toString(),
-					anEntry: ''
+					displayAnEntry: (parseFloat(displayAnEntry.replace(/,/g, '')) / 100).toLocaleString()
 				}));
 			} else if (INPUTS.includes(anInput)) {
 				this.setState(prevState => ({
-					anEntry: prevState.anEntry.substr(0, 8) + anInput // substr() limit an entry to 9 digits.
+					anEntry: prevState.anEntry.substr(0, 8) + anInput // substr() limit an entry to 9 digits; 8 previous + 1 current
 				}));
 
 				// this setState sync the anEntry above.
@@ -84,6 +83,7 @@ class App extends Component {
 		}
 	}
 
+	/*---HANDLE THE EVALUATION OF CALCULATION----------------------------------------*/
 	handleEvaluation(displayAnEntry) {
 		this.setState(prevState => ({
 			displayAnEntry: eval(
@@ -93,6 +93,7 @@ class App extends Component {
 		}));
 	}
 
+	/*---HANDLE REAL TIME WIDTH OF BOTH DISPLAYS-------------------------------------*/
 	handleDisplayWidth() {
 		const topWidth = document.getElementById('top').scrollWidth;
 		const bottomWidth = document.getElementById('bottom').scrollWidth;
