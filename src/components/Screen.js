@@ -17,9 +17,11 @@ class Screen extends Component {
 
 	render() {
 		const { container, topDisplay, displayAll, displayEntry, btn } = style;
-		const { anEntry, entries, overflow } = this.props;
+		const { entry, entries, overflow, evaluate } = this.props;
 
-		let initialEntry = [0],
+		let topEntries = entries,
+			bottomEntry = '0',
+			calculation = 0,
 			overflowLeft = null,
 			overflowRight = null,
 			shrinkToFit = {},
@@ -28,12 +30,17 @@ class Screen extends Component {
 			};
 
 		/*---SET INITIAL BOTTOM DISPLAY TO ZERO WHEN C OR CE---*/
-		if (anEntry.length) {
-			initialEntry = anEntry;
+		if (entry) {
+			bottomEntry = entry;
 		}
 
-		/*---TOP DISPLAY TO OVERFLOW SCROLL WITH ARROW BUTTONS WHEN ENTRIES > SCREEN WIDTH---*/
+		switch (true) {
+			case OPERATORS_EXCEPT_MINUS.includes(topEntries[0]):
+				topEntries = 'invalid input';
+		}
+
 		if (overflow > 480) {
+			/*---TOP DISPLAY TO OVERFLOW SCROLL WITH ARROW BUTTONS WHEN ENTRIES > SCREEN WIDTH---*/
 			overflowLeft = (
 				<a className={btn} onClick={this.scrollLeft}>
 					&lsaquo;
@@ -51,13 +58,11 @@ class Screen extends Component {
 		}
 
 		/*---SHRINK BOTTOM DISPLAY TO FIT AND LIMIT TO ONLY 9 DIGITS---*/
-		if (initialEntry.length > 6) {
+		if (bottomEntry && bottomEntry.length > 7) {
 			shrinkToFit = {
 				fontSize: '1.83em',
 				paddingTop: '25px'
 			};
-
-			isNaN(parseInt(initialEntry[initialEntry.length - 1], 10)) ? initialEntry.splice(10) : initialEntry.splice(9);
 		}
 
 		return (
@@ -65,12 +70,12 @@ class Screen extends Component {
 				<div className={topDisplay}>
 					{overflowLeft}
 					<div id="top" className={displayAll} style={textDirection}>
-						{entries}&lrm;
+						{topEntries}&lrm;
 					</div>
 					{overflowRight}
 				</div>
 				<div id="bottom" className={displayEntry} style={shrinkToFit}>
-					{initialEntry}
+					{bottomEntry}
 				</div>
 			</div>
 		);
@@ -80,6 +85,7 @@ class Screen extends Component {
 export default Screen;
 
 const TOP_SCROLL = document.getElementById('top');
+const OPERATORS_EXCEPT_MINUS = ['÷', 'x', '+', '='];
 
 /*TODO:
 *** - enable scroll arrows

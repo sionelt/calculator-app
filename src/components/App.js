@@ -7,45 +7,91 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
-		this.state = { inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null };
+		this.state = {
+			anEntry: '',
+			displayAnEntry: '',
+			displayAllEntries: '',
+			evaluateEntries: '',
+			toggleParenthesis: true,
+			scrollLength: 0,
+			equalTo: 0
+		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleDisplayWidth = this.handleDisplayWidth.bind(this);
 	}
 
 	/*--CLICK HANDLER-------------------------------------------------------------*/
 	handleClick(anInput) {
-		const { inputsArr, keyPress, toggleParenthesis } = this.state;
+		const { anEntry, displayAnEntry, displayAllEntries, evaluateEntries, equalTo, toggleParenthesis } = this.state;
 
 		this.handleDisplayWidth();
 
+		// this.setState({ displayAnEntry: '' });
+
 		if (anInput === '( )') {
-			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr] }));
+			this.setState(prevState => ({ anEntry: prevState.anEntry }));
 
 			toggleParenthesis
 				? this.setState(prevState => ({
-						allEntries: [...prevState.allEntries, '('],
+						displayAllEntries: prevState.displayAllEntries + '(',
 						toggleParenthesis: false,
-						inputsArr: []
+						anEntry: ''
 					}))
 				: this.setState(prevState => ({
-						allEntries: [...prevState.allEntries, inputsArr, ')'],
+						displayAllEntries: prevState.displayAllEntries + inputsArr + ')',
 						toggleParenthesis: true,
-						inputsArr: []
+						anEntry: ''
 					}));
 		} else {
-			this.setState(prevState => ({ inputsArr: [...prevState.inputsArr, anInput] }));
-
-			if (OPERATORS.includes(anInput)) {
-				this.setState(prevState => ({
-					allEntries: [...prevState.allEntries, inputsArr, anInput],
-					inputsArr: []
-				}));
-			} else if (anInput === 'C') {
-				this.setState({ inputsArr: [], allEntries: [], toggleParenthesis: true, scrollLength: null, keyPress: 0 });
+			if (anInput === 'C') {
+				this.setState({
+					anEntry: '',
+					displayAnEntry: '',
+					evaluateEntries: '',
+					displayAllEntries: '',
+					toggleParenthesis: true,
+					scrollLength: 0,
+					equalTo: 0
+				});
 			} else if (anInput === 'CE') {
-				this.setState({ inputsArr: [], toggleParenthesis: true, keyPress: null });
+				this.setState({
+					anEntry: '',
+					displayAnEntry: '',
+					toggleParenthesis: true,
+					equalTo: false
+				});
 			} else if (anInput === '%') {
-				this.setState({ inputsArr: (parseFloat(inputsArr.join('')) / 100).toString().split('') });
+				this.setState(prevState => ({
+					displayAllEntries: prevState.displayAllEntries + (parseFloat(anEntry) / 100).toString(),
+					anEntry: ''
+				}));
+			} else if (INPUTS.includes(anInput)) {
+				this.setState(prevState => ({
+					anEntry: prevState.anEntry.substr(0, 8) + anInput
+				}));
+				this.setState(state => ({
+					displayAnEntry: parseFloat(state.anEntry).toLocaleString() // sync the anEntry above
+				}));
+			} else if (OPERATORS.includes(anInput)) {
+				if (anInput === '=') {
+					this.setState(prevState => ({
+						displayAllEntries: '',
+						displayAnEntry: eval(
+							(prevState.displayAllEntries + displayAnEntry).replace('x', '*').replace('÷', '/')
+						).toString(),
+						anEntry: ''
+					}));
+				} else {
+					this.setState(prevState => ({
+						displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput,
+						displayAnEntry: eval(
+							(prevState.displayAllEntries + displayAnEntry).replace('x', '*').replace('÷', '/')
+						).toString(),
+						anEntry: ''
+					}));
+
+					console.log(evaluateEntries);
+				}
 			}
 		}
 	}
@@ -58,7 +104,7 @@ class App extends Component {
 
 	render() {
 		const { demo, container } = style;
-		const { inputsArr, allEntries, scrollLength } = this.state;
+		const { displayAnEntry, displayAllEntries, scrollLength, equalTo } = this.state;
 		return (
 			<div className={demo}>
 				<Helmet>
@@ -66,7 +112,7 @@ class App extends Component {
 					<link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet" />
 				</Helmet>
 				<div className={container}>
-					<Screen anEntry={inputsArr} entries={allEntries} overflow={scrollLength} />
+					<Screen entry={displayAnEntry} entries={displayAllEntries} overflow={scrollLength} evaluate={equalTo} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
