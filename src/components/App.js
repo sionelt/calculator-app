@@ -77,6 +77,7 @@ class App extends Component {
 				this.setState(prevState => ({
 					displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput
 				}));
+				console.log(this.state.displayAnEntry);
 			}
 		}
 	}
@@ -85,7 +86,7 @@ class App extends Component {
 	handleEvaluation(displayAnEntry) {
 		this.setState(prevState => ({
 			displayAnEntry: eval(
-				(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
+				(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace(/x/g, '*').replace(/÷/g, '/')
 			).toLocaleString(),
 			anEntry: ''
 		}));
