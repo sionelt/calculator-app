@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Helmet } from 'react-helmet';
 import style from 'styles/globals.css';
 import Keypad from './Keypad';
 import Screen from './Screen';
@@ -11,7 +10,7 @@ class App extends Component {
 			anEntry: '',
 			displayAnEntry: '',
 			displayAllEntries: '',
-			toggleParenthesis: true,
+			togglePlusMinus: true,
 			scrollLength: 0
 		};
 		this.handleClick = this.handleClick.bind(this);
@@ -21,35 +20,33 @@ class App extends Component {
 
 	/*--CLICK HANDLER-------------------------------------------------------------*/
 	handleClick(anInput) {
-		const { anEntry, displayAnEntry, displayAllEntries, toggleParenthesis } = this.state;
+		const { anEntry, displayAnEntry, displayAllEntries, togglePlusMinus } = this.state;
 
 		this.handleDisplayWidth();
 
-		if (anInput === '( )') {
-			toggleParenthesis
+		if (anInput === '±') {
+			togglePlusMinus
 				? this.setState(prevState => ({
-						displayAllEntries: prevState.displayAllEntries + '(',
-						toggleParenthesis: false,
-						anEntry: ''
+						displayAnEntry: '-' + prevState.displayAnEntry,
+						togglePlusMinus: false
 					}))
 				: this.setState(prevState => ({
-						displayAllEntries: prevState.displayAllEntries + inputsArr + ')',
-						toggleParenthesis: true,
-						anEntry: ''
+						displayAnEntry: prevState.displayAnEntry,
+						togglePlusMinus: true
 					}));
 		} else if (anInput === 'C') {
 			this.setState({
 				anEntry: '',
 				displayAnEntry: '',
 				displayAllEntries: '',
-				toggleParenthesis: true,
+				togglePlusMinus: true,
 				scrollLength: 0
 			});
 		} else if (anInput === 'CE') {
 			this.setState({
 				anEntry: '',
 				displayAnEntry: '',
-				toggleParenthesis: true
+				togglePlusMinus: true
 			});
 		} else if (anInput === '%') {
 			this.setState(prevState => ({
@@ -106,11 +103,11 @@ class App extends Component {
 
 	render() {
 		const { demo, container } = style;
-		const { displayAnEntry, displayAllEntries, scrollLength, equalTo } = this.state;
+		const { displayAnEntry, displayAllEntries, scrollLength } = this.state;
 		return (
 			<div className={demo}>
 				<div className={container}>
-					<Screen entry={displayAnEntry} entries={displayAllEntries} overflow={scrollLength} evaluate={equalTo} />
+					<Screen entry={displayAnEntry} entries={displayAllEntries} overflow={scrollLength} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
@@ -120,5 +117,5 @@ class App extends Component {
 
 export default App;
 
-const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '( )', '.'];
+const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.', '±'];
 const OPERATORS = ['÷', 'x', '-', '+', '='];
