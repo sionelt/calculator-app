@@ -16,6 +16,7 @@ class App extends Component {
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleDisplayWidth = this.handleDisplayWidth.bind(this);
+		this.handleEvaluation = this.handleEvaluation.bind(this);
 	}
 
 	/*--CLICK HANDLER-------------------------------------------------------------*/
@@ -71,20 +72,25 @@ class App extends Component {
 				}));
 			} else if (OPERATORS.includes(anInput)) {
 				if (anInput === '=') {
-					this.setState(prevState => ({
-						displayAllEntries: '',
-						displayAnEntry: EVALUTION_EXPRESSION,
-						anEntry: ''
-					}));
+					this.handleEvaluation(displayAnEntry);
+					this.setState({ displayAllEntries: '' });
 				} else {
+					this.handleEvaluation(displayAnEntry);
 					this.setState(prevState => ({
-						displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput,
-						displayAnEntry: EVALUATION_EXPRESSION,
-						anEntry: ''
+						displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput
 					}));
 				}
 			}
 		}
+	}
+
+	handleEvaluation(displayAnEntry) {
+		this.setState(prevState => ({
+			displayAnEntry: eval(
+				(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
+			).toLocaleString(),
+			anEntry: ''
+		}));
 	}
 
 	handleDisplayWidth() {
@@ -115,6 +121,3 @@ export default App;
 
 const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '( )', '.'];
 const OPERATORS = ['÷', 'x', '-', '+', '='];
-const EVALUATE_EXPRESSION = eval(
-	(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace('x', '*').replace('÷', '/')
-).toLocaleString();
