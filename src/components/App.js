@@ -10,7 +10,8 @@ class App extends Component {
 			anEntry: '',
 			displayAnEntry: '',
 			displayAllEntries: '',
-			togglePlusMinus: true
+			togglePlusMinus: true,
+			scrollStayRight: 0
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleEvaluation = this.handleEvaluation.bind(this);

@@ -45,8 +45,11 @@ const Screen = props => {
 		);
 
 		textDirection = {
-			paddingRight: '0'
+      paddingRight: '0'
 		};
+
+		//auto scroll to right end when overflow scroll.
+		handleScrollRight();
 	}
 
 	// shrink and limit bottom display entry to fit screen width and 9 digits only.

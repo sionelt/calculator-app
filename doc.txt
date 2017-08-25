@@ -14,18 +14,13 @@ pass parent method to child and modify state from there
 5.passing props to initial state:
 use componentWillRecieveProps
 
-6.check for empty array:
-if (!Array.isArray(array) || !array.length) {
-  // array does not exist, is not an array, or is empty
-}
-To break it down:
-
-Array.isArray(), unsurprisingly, checks whether its argument is an array. This weeds out values like null, undefined and anything else that is not an array.
-Note that this will also eliminate array-like objects, such as the arguments object and DOM NodeList objects. Depending on your situation, this might not be the behavior you're after.
-The array.length condition checks whether the variable's length property evaluates to a truthy value. Because the previous condition already established that we are indeed dealing with an array, more strict comparisons like array.length != 0 or array.length !== 0 are not required here.
 
 6.auto scroll to end of the top view when overflow:
-overflow-x scroll and direction: rtl meaning right to left.
+set top.scrollLeft = 600, 600 more than max width.
 
-7.characters in top entries move to front:
-insert RLM - Right-to-Left Mark &lrm; a non printing character at the end of the top entries, which change direction of non alphanumeric characters back to normal flow.
+8. dash for minus cause top expression to wrap:
+whitespace: nowrap
+turns out, browser reads dash sign for minus as hyphens for line break.
+whitespace no wrap suppressed line breaks in string.
+https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
+
