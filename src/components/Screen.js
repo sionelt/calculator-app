@@ -35,8 +35,8 @@ class Screen extends Component {
 		// display invalid if operators is input incorrectly.
 		operators.includes(topEntries[0]) ? (topEntries = 'invalid input') : (topEntries = entries);
 
-		if (overflow > 480) {
-			/*---TOP DISPLAY TO OVERFLOW SCROLL WITH ARROW BUTTONS WHEN ENTRIES > SCREEN WIDTH---*/
+		// set top display to overflow scroll with arrows navigation when entries > screen width.
+		if (topEntries && topEntries.length > 15) {
 			overflowLeft = (
 				<a className={btn} onClick={this.scrollLeft}>
 					&lsaquo;
@@ -48,12 +48,11 @@ class Screen extends Component {
 				</a>
 			);
 			textDirection = {
-				paddingRight: '0',
-				direction: 'rtl'
+				paddingRight: '0'
 			};
 		}
 
-		/*---SHRINK BOTTOM DISPLAY TO FIT AND LIMIT TO ONLY 9 DIGITS---*/
+		// shrink and limit bottom display to fit screen width and 9 digits only.
 		if (bottomEntry && bottomEntry.length > 7) {
 			shrinkToFit = {
 				fontSize: '1.7em',

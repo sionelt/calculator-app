@@ -10,21 +10,18 @@ class App extends Component {
 			anEntry: '',
 			displayAnEntry: '',
 			displayAllEntries: '',
-			togglePlusMinus: true,
-			scrollLength: 0
+			togglePlusMinus: true
 		};
 		this.handleClick = this.handleClick.bind(this);
-		this.handleDisplayWidth = this.handleDisplayWidth.bind(this);
 		this.handleEvaluation = this.handleEvaluation.bind(this);
 	}
 
 	/*--CLICK HANDLER-------------------------------------------------------------*/
 	handleClick(anInput) {
-		const { anEntry, displayAnEntry, displayAllEntries, togglePlusMinus } = this.state;
-
-		this.handleDisplayWidth();
+		const { anEntry, displayAnEntry, displayAllEntries, togglePlusMinus, scrollLength } = this.state;
 
 		if (anInput === '±') {
+			// Condition when to append - sign.
 			togglePlusMinus
 				? this.setState(prevState => ({
 						displayAnEntry: '-' + prevState.displayAnEntry,
@@ -39,8 +36,7 @@ class App extends Component {
 				anEntry: '',
 				displayAnEntry: '',
 				displayAllEntries: '',
-				togglePlusMinus: true,
-				scrollLength: 0
+				togglePlusMinus: true
 			});
 		} else if (anInput === 'CE') {
 			this.setState({
@@ -55,10 +51,10 @@ class App extends Component {
 		} else if (INPUTS.includes(anInput)) {
 			this.setState(prevState => ({
 				// substr() limit an entry to 9 digits; 8 previous + 1 current
-				anEntry: prevState.anEntry.substr(0, 8) + anInput
+				anEntry: (prevState.anEntry + anInput).substr(0, 8)
 			}));
 
-			// this setState sync the anEntry above.
+			// this setState sync the anEntry above so bottom display is updated anew on every entry
 			this.setState(state => ({
 				// toLocaleString() format entries with comma.
 				displayAnEntry: parseFloat(state.anEntry).toLocaleString()
@@ -77,6 +73,7 @@ class App extends Component {
 			} else {
 				// evaluate at arithmetic operators
 				this.handleEvaluation(displayAnEntry);
+				// set state for top display apart from evaluation for valid calculation.
 				this.setState(prevState => ({
 					displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput
 				}));
@@ -94,20 +91,13 @@ class App extends Component {
 		}));
 	}
 
-	/*---HANDLE REAL-TIME COMBINED WIDTH OF BOTH DISPLAYS-------------------------------------*/
-	handleDisplayWidth() {
-		const topWidth = document.getElementById('top').scrollWidth;
-		const bottomWidth = document.getElementById('bottom').scrollWidth;
-		this.setState({ scrollLength: topWidth + bottomWidth });
-	}
-
 	render() {
 		const { demo, container } = style;
 		const { displayAnEntry, displayAllEntries, scrollLength } = this.state;
 		return (
 			<div className={demo}>
 				<div className={container}>
-					<Screen entry={displayAnEntry} entries={displayAllEntries} operators={OPERATORS} overflow={scrollLength} />
+					<Screen entry={displayAnEntry} entries={displayAllEntries} operators={OPERATORS} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
