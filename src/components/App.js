@@ -25,11 +25,7 @@ class App extends Component {
 
 		this.handleDisplayWidth();
 
-		// this.setState({ displayAnEntry: '' });
-
 		if (anInput === '( )') {
-			this.setState(prevState => ({ anEntry: prevState.anEntry }));
-
 			toggleParenthesis
 				? this.setState(prevState => ({
 						displayAllEntries: prevState.displayAllEntries + '(',
@@ -62,18 +58,25 @@ class App extends Component {
 				}));
 			} else if (INPUTS.includes(anInput)) {
 				this.setState(prevState => ({
-					anEntry: prevState.anEntry.substr(0, 8) + anInput // substr() limit an entry to 9 digits; 8 previous + 1 current
+					// substr() limit an entry to 9 digits; 8 previous + 1 current
+					anEntry: prevState.anEntry.substr(0, 8) + anInput
 				}));
 
 				// this setState sync the anEntry above.
 				this.setState(state => ({
-					displayAnEntry: parseFloat(state.anEntry).toLocaleString() // toLocaleString() format entries with comma.
+					// toLocaleString() format entries with comma.
+					displayAnEntry: parseFloat(state.anEntry).toLocaleString()
 				}));
 			} else if (OPERATORS.includes(anInput)) {
-				if (anInput === '=') {
+				if (!anEntry) {
+					// opt as invalid in Screen module.
+					this.setState({ displayAllEntries: anInput });
+				} else if (anInput === '=') {
+					// evaluate at equal operator.
 					this.handleEvaluation(displayAnEntry);
 					this.setState({ displayAllEntries: '' });
 				} else {
+					// evaluate at arithmetic operators
 					this.handleEvaluation(displayAnEntry);
 					this.setState(prevState => ({
 						displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput
@@ -93,7 +96,7 @@ class App extends Component {
 		}));
 	}
 
-	/*---HANDLE REAL TIME WIDTH OF BOTH DISPLAYS-------------------------------------*/
+	/*---HANDLE REAL-TIME COMBINED WIDTH OF BOTH DISPLAYS-------------------------------------*/
 	handleDisplayWidth() {
 		const topWidth = document.getElementById('top').scrollWidth;
 		const bottomWidth = document.getElementById('bottom').scrollWidth;
