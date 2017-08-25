@@ -60,8 +60,8 @@ class Screen extends Component {
 		/*---SHRINK BOTTOM DISPLAY TO FIT AND LIMIT TO ONLY 9 DIGITS---*/
 		if (bottomEntry && bottomEntry.length > 7) {
 			shrinkToFit = {
-				fontSize: '1.83em',
-				paddingTop: '25px'
+				fontSize: '1.7em',
+				paddingTop: '29px'
 			};
 		}
 
