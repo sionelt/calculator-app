@@ -32,6 +32,7 @@ class App extends Component {
 						togglePlusMinus: true
 					}));
 		} else if (anInput === 'C') {
+			// reset both displays.
 			this.setState({
 				anEntry: '',
 				displayAnEntry: '',
@@ -39,12 +40,14 @@ class App extends Component {
 				togglePlusMinus: true
 			});
 		} else if (anInput === 'CE') {
+			// reset only the bottom display
 			this.setState({
 				anEntry: '',
 				displayAnEntry: '',
 				togglePlusMinus: true
 			});
 		} else if (anInput === '%') {
+			// convert an entry to percentage.
 			this.setState(prevState => ({
 				displayAnEntry: (parseFloat(displayAnEntry.replace(/,/g, '')) / 100).toLocaleString()
 			}));
@@ -71,13 +74,12 @@ class App extends Component {
 				this.handleEvaluation(displayAnEntry);
 				this.setState({ displayAllEntries: '' });
 			} else {
-				// evaluate at arithmetic operators
+				// evaluate at arithmetic operators curryingly.
 				this.handleEvaluation(displayAnEntry);
 				// set state for top display apart from evaluation for valid calculation.
 				this.setState(prevState => ({
 					displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput
 				}));
-				console.log(this.state.displayAnEntry);
 			}
 		}
 	}
@@ -86,8 +88,10 @@ class App extends Component {
 	handleEvaluation(displayAnEntry) {
 		this.setState(prevState => ({
 			displayAnEntry: eval(
+				// replace all occurances commas, x and ÷.
 				(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace(/x/g, '*').replace(/÷/g, '/')
 			).toLocaleString(),
+			// resetting to start anew a new entry without carrying over displayed answers.
 			anEntry: ''
 		}));
 	}
@@ -95,6 +99,7 @@ class App extends Component {
 	render() {
 		const { demo, container } = style;
 		const { displayAnEntry, displayAllEntries, scrollLength } = this.state;
+
 		return (
 			<div className={demo}>
 				<div className={container}>
@@ -106,7 +111,7 @@ class App extends Component {
 	}
 }
 
-export default App;
-
 const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.', '±'];
 const OPERATORS = ['÷', 'x', '-', '+', '='];
+
+export default App;
