@@ -51,7 +51,7 @@ class App extends Component {
 		} else if (INPUTS.includes(anInput)) {
 			this.setState(prevState => ({
 				// substr() limit an entry to 9 digits; 8 previous + 1 current
-				anEntry: (prevState.anEntry + anInput).substr(0, 8)
+				anEntry: (prevState.anEntry + anInput).substr(0, 9)
 			}));
 
 			// this setState sync the anEntry above so bottom display is updated anew on every entry

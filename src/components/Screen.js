@@ -17,7 +17,7 @@ class Screen extends Component {
 
 	render() {
 		const { container, topDisplay, displayAll, displayEntry, btn } = style;
-		const { entry, entries, overflow, operators } = this.props;
+		const { entry, entries, operators } = this.props;
 
 		let topEntries = entries,
 			bottomEntry = '',
@@ -52,12 +52,16 @@ class Screen extends Component {
 			};
 		}
 
-		// shrink and limit bottom display to fit screen width and 9 digits only.
+		// shrink and limit bottom display entry to fit screen width and 9 digits only.
 		if (bottomEntry && bottomEntry.length > 7) {
 			shrinkToFit = {
 				fontSize: '1.7em',
 				paddingTop: '29px'
-			};
+      };
+      // convert answer that is more than screen width into exponential format.
+			if (bottomEntry.length > 11) {
+				bottomEntry = parseFloat(bottomEntry).toExponential(5).toLocaleString();
+			}
 		}
 
 		return (
