@@ -11,6 +11,7 @@
 }
 .btn {
 	display: flex;
+	font-weight: 300;
 	justify-content: center;
 	align-items: center;
 	min-width: 80px;
@@ -30,3 +31,20 @@
 	background-color: #f68111;
 	color: #fff;
 }
+.input:hover,
+.input:focus {
+	background-color: #e3e3e3;
+	font-weight: 400;
+}
+.operator:hover,
+.input:focus {
+	font-weight: 400;
+	background-color: #d56800;
+}
+.input:active {
+	background-color: #bfbfbf;
+}
+.operator:active {
+  background-color: #F79A43;
+}
+

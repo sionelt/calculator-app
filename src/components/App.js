@@ -23,15 +23,24 @@ class App extends Component {
 
 		if (anInput === '±') {
 			// Condition when to append - sign.
-			togglePlusMinus
-				? this.setState(prevState => ({
-						displayAnEntry: '-' + prevState.displayAnEntry,
-						togglePlusMinus: false
-					}))
-				: this.setState(prevState => ({
-						displayAnEntry: prevState.displayAnEntry,
-						togglePlusMinus: true
-					}));
+			if (!anEntry) {
+				this.setState(prevState => ({
+					displayAllEntries: prevState.displayAllEntries,
+					displayAnEntry: prevState.displayAnEntry
+				}));
+			} else {
+				togglePlusMinus
+					? this.setState(prevState => ({
+							displayAnEntry: '-' + prevState.displayAnEntry,
+							togglePlusMinus: false,
+							isValid: false,
+							anEntry: prevState.displayAnEntry
+						}))
+					: this.setState(prevState => ({
+							displayAnEntry: prevState.anEntry,
+							togglePlusMinus: true
+						}));
+			}
 		} else if (anInput === 'C') {
 			// reset both displays.
 			this.setState({
