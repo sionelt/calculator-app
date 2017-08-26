@@ -11,7 +11,7 @@ class App extends Component {
 			displayAnEntry: '',
 			displayAllEntries: '',
 			togglePlusMinus: true,
-			l: 1000
+			isValid: false
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleEvaluation = this.handleEvaluation.bind(this);
@@ -19,7 +19,7 @@ class App extends Component {
 
 	/*--CLICK HANDLER-------------------------------------------------------------*/
 	handleClick(anInput) {
-		const { anEntry, displayAnEntry, displayAllEntries, togglePlusMinus, scrollLength } = this.state;
+		const { anEntry, displayAnEntry, displayAllEntries, togglePlusMinus, isValid } = this.state;
 
 		if (anInput === '±') {
 			// Condition when to append - sign.
@@ -38,17 +38,19 @@ class App extends Component {
 				anEntry: '',
 				displayAnEntry: '',
 				displayAllEntries: '',
-				togglePlusMinus: true
+				togglePlusMinus: true,
+				isValid: false
 			});
 		} else if (anInput === 'CE') {
 			// reset only the bottom display
 			this.setState({
 				anEntry: '',
 				displayAnEntry: '',
-				togglePlusMinus: true
+				togglePlusMinus: true,
+				isValid: false
 			});
 		} else if (anInput === '%') {
-			// convert an entry to percentage.
+			// convert an entry to percentage decimal.
 			this.setState(prevState => ({
 				displayAnEntry: (parseFloat(displayAnEntry.replace(/,/g, '')) / 100).toLocaleString()
 			}));
@@ -64,22 +66,23 @@ class App extends Component {
 				displayAnEntry: parseFloat(state.anEntry).toLocaleString()
 			}));
 		} else if (OPERATORS.includes(anInput)) {
-			if (!anEntry) {
-				// set to props that will render invalid in Screen.js's topEntries.
-				this.setState({
-					displayAllEntries: anInput,
-					displayAnEntry: ''
-				});
+			if (!anEntry && !isValid) {
+				// no updates on Screen when its an invalid input.
+				this.setState(prevState => ({
+					displayAllEntries: prevState.displayAllEntries,
+					displayAnEntry: prevState.displayAnEntry
+				}));
 			} else if (anInput === '=') {
 				// evaluate at equal operator.
 				this.handleEvaluation(displayAnEntry);
-				this.setState({ displayAllEntries: '' });
+				this.setState({ displayAllEntries: '', isValid: true });
 			} else {
 				// evaluate at arithmetic operators curryingly.
 				this.handleEvaluation(displayAnEntry);
 				// set state for top display apart from evaluation for valid calculation.
 				this.setState(prevState => ({
-					displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput
+					displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput,
+					isValid: false
 				}));
 			}
 		}
@@ -99,12 +102,12 @@ class App extends Component {
 
 	render() {
 		const { demo, container } = style;
-		const { displayAnEntry, displayAllEntries, l } = this.state;
+		const { displayAnEntry, displayAllEntries } = this.state;
 
 		return (
 			<div className={demo}>
 				<div className={container}>
-					<Screen entry={displayAnEntry} entries={displayAllEntries} operators={OPERATORS} test={l} />
+					<Screen entry={displayAnEntry} entries={displayAllEntries} operators={OPERATORS} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>

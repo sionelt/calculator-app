@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import style from 'styles/Screen.css';
+import propTypes from 'prop-types';
 
 const Screen = props => {
 	const { container, topDisplay, displayAll, displayEntry, btn } = style;
@@ -27,9 +28,6 @@ const Screen = props => {
 
 	// set reset display to 0 when C or CE.
 	entry ? (bottomEntry = entry) : (bottomEntry = '0');
-
-	// display invalid if operators is input incorrectly.
-	operators.includes(topEntries[0]) ? (topEntries = 'invalid input') : null;
 
 	// set top display to overflow scroll with arrows navigation when entries > screen width.
 	if (topEntries && topEntries.length > 15) {
