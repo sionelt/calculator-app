@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 const Screen = props => {
 	const { container, topDisplay, displayAll, displayEntry, btn } = style;
-	const { entry, entries, operators, test } = props;
+	const { entry, entries } = props;
 	const TOP_SCROLL = document.getElementById('top');
 
 	const handleScrollLeft = () => {
@@ -84,6 +84,11 @@ const Screen = props => {
 			</div>
 		</div>
 	);
+};
+
+Screen.propTypes = {
+	entry: propTypes.string.isRequred,
+	entries: propTypes.string.isRequired
 };
 
 export default Screen;

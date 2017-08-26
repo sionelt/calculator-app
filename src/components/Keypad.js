@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import style from 'styles/Keypad.css';
 
 const Keypad = props => {
@@ -22,6 +23,12 @@ const Keypad = props => {
 			</ul>
 		</div>
 	);
+};
+
+Keypad.propTypes = {
+	inputKeys: propTypes.arrayOf(propTypes.string).isRequired,
+	operatorKeys: propTypes.arrayOf(propTypes.string).isRequired,
+	onInput: propTypes.func.isRequired
 };
 
 export default Keypad;
