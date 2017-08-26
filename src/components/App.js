@@ -60,9 +60,16 @@ class App extends Component {
 			});
 		} else if (anInput === '%') {
 			// convert an entry to percentage decimal.
-			this.setState(prevState => ({
-				displayAnEntry: (parseFloat(displayAnEntry.replace(/,/g, '')) / 100).toLocaleString()
-			}));
+			if (!anEntry) {
+				this.setState(prevState => ({
+					displayAllEntries: prevState.displayAllEntries,
+					displayAnEntry: prevState.displayAnEntry
+				}));
+			} else {
+				this.setState(prevState => ({
+					displayAnEntry: (parseFloat(displayAnEntry.replace(/,/g, '')) / 100).toLocaleString()
+				}));
+			}
 		} else if (INPUTS.includes(anInput)) {
 			this.setState(prevState => ({
 				// substr() limit an entry to 9 digits; 8 previous + 1 current
