@@ -11,7 +11,7 @@ class App extends Component {
 			displayAnEntry: '',
 			displayAllEntries: '',
 			togglePlusMinus: true,
-			scrollStayRight: 0
+			l: 1000
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleEvaluation = this.handleEvaluation.bind(this);
@@ -65,7 +65,7 @@ class App extends Component {
 			}));
 		} else if (OPERATORS.includes(anInput)) {
 			if (!anEntry) {
-				// display invalid if operator is input incorrectly.
+				// set to props that will render invalid in Screen.js's topEntries.
 				this.setState({
 					displayAllEntries: anInput,
 					displayAnEntry: ''
@@ -99,12 +99,12 @@ class App extends Component {
 
 	render() {
 		const { demo, container } = style;
-		const { displayAnEntry, displayAllEntries, scrollLength } = this.state;
+		const { displayAnEntry, displayAllEntries, l } = this.state;
 
 		return (
 			<div className={demo}>
 				<div className={container}>
-					<Screen entry={displayAnEntry} entries={displayAllEntries} operators={OPERATORS} />
+					<Screen entry={displayAnEntry} entries={displayAllEntries} operators={OPERATORS} test={l} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>

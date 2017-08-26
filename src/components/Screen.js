@@ -3,7 +3,7 @@ import style from 'styles/Screen.css';
 
 const Screen = props => {
 	const { container, topDisplay, displayAll, displayEntry, btn } = style;
-	const { entry, entries, operators } = props;
+	const { entry, entries, operators, test } = props;
 	const TOP_SCROLL = document.getElementById('top');
 
 	const handleScrollLeft = () => {
@@ -11,7 +11,7 @@ const Screen = props => {
 	};
 
 	const handleScrollRight = () => {
-		TOP_SCROLL.scrollLeft = 10000;
+		TOP_SCROLL.scrollLeft = test;
 	};
 
 	let topEntries = entries,
@@ -20,7 +20,8 @@ const Screen = props => {
 		overflowLeft = null,
 		overflowRight = null,
 		shrinkToFit = {},
-		textDirection = {
+		topTextDirection = {},
+		topContainerDirection = {
 			paddingRight: '10px'
 		};
 
@@ -44,12 +45,16 @@ const Screen = props => {
 			</a>
 		);
 
-		textDirection = {
-      paddingRight: '0'
+		/*--THIS ALLOW AUTO SCROLL TO THE END WHEN TOP DISPLAY IS UPDATED--*/
+		//top display's container direction; right to left.
+		topContainerDirection = {
+			paddingRight: '0',
+			direction: 'rtl'
 		};
-
-		//auto scroll to right end when overflow scroll.
-		handleScrollRight();
+		//set text within top display container; left to right.
+		topTextDirection = {
+			direction: 'ltr'
+		};
 	}
 
 	// shrink and limit bottom display entry to fit screen width and 9 digits only.
@@ -69,8 +74,10 @@ const Screen = props => {
 		<div className={container}>
 			<div className={topDisplay}>
 				{overflowLeft}
-				<div id="top" className={displayAll} style={textDirection}>
-					{topEntries}
+				<div id="top" className={displayAll} style={topContainerDirection}>
+					<span style={topTextDirection}>
+						{topEntries}
+					</span>
 				</div>
 				{overflowRight}
 			</div>
