@@ -7,123 +7,149 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			anEntry: '',
-			displayAnEntry: '',
-			displayAllEntries: '',
+			pendingEntry: '',
+			activeEntry: '',
+			allEntries: '',
 			togglePlusMinus: true,
-			isValid: false
+			isValidInput: false
 		};
 		this.handleClick = this.handleClick.bind(this);
-		this.handleEvaluation = this.handleEvaluation.bind(this);
+		this.handleNumberInputs = this.handleNumberInputs.bind(this);
+		this.handleErrorInput = this.handleErrorInput.bind(this);
+		this.handlePlusMinusInput = this.handlePlusMinusInput.bind(this);
+		this.handlePercentageInput = this.handlePercentageInput.bind(this);
+		this.handleClearEntry = this.handleClearEntry.bind(this);
+		this.handleClearGlobal = this.handleClearGlobal.bind(this);
+		this.handleCalculation = this.handleCalculation.bind(this);
+		this.handleEqualToDisplay = this.handleEqualToDisplay.bind(this);
+		this.handleArithmeticsDisplay = this.handleArithmeticsDisplay.bind(this);
 	}
 
-	/*--CLICK HANDLER-------------------------------------------------------------*/
 	handleClick(anInput) {
-		const { anEntry, displayAnEntry, displayAllEntries, togglePlusMinus, isValid } = this.state;
+		const { pendingEntry, activeEntry, allEntries, togglePlusMinus, isValidInput } = this.state;
 
-		if (anInput === '±') {
-			// Condition when to append - sign.
-			if (!anEntry) {
-				this.setState(prevState => ({
-					displayAllEntries: prevState.displayAllEntries,
-					displayAnEntry: prevState.displayAnEntry
-				}));
-			} else {
-				togglePlusMinus
-					? this.setState(prevState => ({
-							displayAnEntry: '-' + prevState.displayAnEntry,
-							togglePlusMinus: false,
-							isValid: false,
-							anEntry: prevState.displayAnEntry
-						}))
-					: this.setState(prevState => ({
-							displayAnEntry: prevState.anEntry,
-							togglePlusMinus: true
-						}));
+		if (INPUTS.includes(anInput)) {
+			switch (true) {
+				case NUMBER_INPUTS.includes(anInput):
+					this.handleNumberInputs(anInput);
+					break;
+				case anInput === '±':
+					!isValidInput ? this.handleErrorInput() : this.handlePlusMinusInput(togglePlusMinus);
+					break;
+				case anInput === '%':
+					!isValidInput ? this.handleErrorInput() : this.handlePercentageInput(activeEntry);
+					break;
+				case anInput === 'CE':
+					this.handleClearEntry();
+					break;
+				default:
+					this.handleClearGlobal();
 			}
-		} else if (anInput === 'C') {
-			// reset both displays.
-			this.setState({
-				anEntry: '',
-				displayAnEntry: '',
-				displayAllEntries: '',
-				togglePlusMinus: true,
-				isValid: false
-			});
-		} else if (anInput === 'CE') {
-			// reset only the bottom display
-			this.setState({
-				anEntry: '',
-				displayAnEntry: '',
-				togglePlusMinus: true,
-				isValid: false
-			});
-		} else if (anInput === '%') {
-			// convert an entry to percentage decimal.
-			if (!anEntry) {
-				this.setState(prevState => ({
-					displayAllEntries: prevState.displayAllEntries,
-					displayAnEntry: prevState.displayAnEntry
-				}));
-			} else {
-				this.setState(prevState => ({
-					displayAnEntry: (parseFloat(displayAnEntry.replace(/,/g, '')) / 100).toLocaleString()
-				}));
-			}
-		} else if (INPUTS.includes(anInput)) {
-			this.setState(prevState => ({
-				// substr() limit an entry to 9 digits; 8 previous + 1 current
-				anEntry: (prevState.anEntry + anInput).substr(0, 9)
-			}));
-
-			// this setState sync the anEntry above so bottom display is updated anew on every entry
-			this.setState(state => ({
-				// toLocaleString() format entries with comma.
-				displayAnEntry: parseFloat(state.anEntry).toLocaleString()
-			}));
-		} else if (OPERATORS.includes(anInput)) {
-			if (!anEntry && !isValid) {
-				// no updates on Screen when its an invalid input.
-				this.setState(prevState => ({
-					displayAllEntries: prevState.displayAllEntries,
-					displayAnEntry: prevState.displayAnEntry
-				}));
-			} else if (anInput === '=') {
-				// evaluate at equal operator.
-				this.handleEvaluation(displayAnEntry);
-				this.setState({ displayAllEntries: '', isValid: true });
-			} else {
-				// evaluate at arithmetic operators curryingly.
-				this.handleEvaluation(displayAnEntry);
-				// set state for top display apart from evaluation for valid calculation.
-				this.setState(prevState => ({
-					displayAllEntries: prevState.displayAllEntries + displayAnEntry + anInput,
-					isValid: false
-				}));
-			}
+		} else {
+			this.handleCalculation(activeEntry);
+			anInput === '=' ? this.handleEqualToDisplay() : this.handleArithmeticsDisplay(activeEntry, anInput);
 		}
 	}
 
-	/*---HANDLE THE EVALUATION OF CALCULATION----------------------------------------*/
-	handleEvaluation(displayAnEntry) {
+	/*-- HANDLE AN ENTRY --*/
+	handleNumberInputs(anInput) {
 		this.setState(prevState => ({
-			displayAnEntry: eval(
+			// substr() limit an entry to 9 digits; 8 previous + 1 current
+			pendingEntry: (prevState.pendingEntry + anInput).substr(0, 9)
+		}));
+		// this setState sync the pendingEntry above so bottom display is updated anew on every entry
+		this.setState(state => ({
+			// toLocaleString() format entries with comma.
+			activeEntry: parseFloat(state.pendingEntry).toLocaleString(),
+			isValidInput: true
+		}));
+	}
+
+	/*-- HANDLE INVALID INPUT --*/
+	handleErrorInput() {
+		this.setState(prevState => ({
+			allEntries: prevState.allEntries,
+			activeEntry: prevState.activeEntry
+		}));
+	}
+
+	/*-- HANDLE TOGGLING ACTIVE ENTRY PLUS/MINUS --*/
+	handlePlusMinusInput(togglePlusMinus) {
+		togglePlusMinus
+			? this.setState(prevState => ({
+					activeEntry: '-' + prevState.activeEntry,
+					togglePlusMinus: false,
+					isValidInput: true,
+					pendingEntry: prevState.activeEntry
+				}))
+			: this.setState(prevState => ({
+					activeEntry: prevState.pendingEntry,
+					togglePlusMinus: true,
+					isValidInput: true
+				}));
+	}
+
+	/*-- HANDLE CONVERTING ACTIVE ENTRY INTO PERCENTAGE --*/
+	handlePercentageInput(activeEntry) {
+		this.setState({
+			activeEntry: (parseFloat(activeEntry.replace(/,/g, '')) / 100).toLocaleString()
+		});
+	}
+
+	/*-- HANDLE CLEARING ONLY THE ACTIVE ENTRY --*/
+	handleClearEntry() {
+		this.setState({
+			pendingEntry: '',
+			activeEntry: '',
+			togglePlusMinus: true,
+			isValidInput: false
+		});
+	}
+
+	/*-- HANDLE CLEARING ALL ENTRIES --*/
+	handleClearGlobal() {
+		this.setState({
+			pendingEntry: '',
+			activeEntry: '',
+			allEntries: '',
+			togglePlusMinus: true,
+			isValidInput: false
+		});
+	}
+
+	/*-- HANDLE THE EVALUATION OF CALCULATION --*/
+	handleCalculation(activeEntry) {
+		this.setState(prevState => ({
+			activeEntry: eval(
 				// replace all occurances commas, x and ÷.
-				(prevState.displayAllEntries + displayAnEntry).replace(/,/g, '').replace(/x/g, '*').replace(/÷/g, '/')
+				(prevState.allEntries + activeEntry).replace(/,/g, '').replace(/x/g, '*').replace(/÷/g, '/')
 			).toLocaleString(),
 			// resetting to start anew a new entry without carrying over displayed answers.
-			anEntry: ''
+			pendingEntry: '',
+			isValidInput: true
+		}));
+	}
+
+	/*-- HANDLE THE FINAL EQUATED ENTRY --*/
+	handleEqualToDisplay() {
+		this.setState({ allEntries: '' });
+	}
+
+	/*-- HANDLE ALL ARITHMETICS ENTRIES --*/
+	handleArithmeticsDisplay(activeEntry, anInput) {
+		this.setState(prevState => ({
+			allEntries: prevState.allEntries + activeEntry + anInput
 		}));
 	}
 
 	render() {
 		const { demo, container } = style;
-		const { displayAnEntry, displayAllEntries } = this.state;
+		const { activeEntry, allEntries, isValidInput } = this.state;
 
 		return (
 			<div className={demo}>
 				<div className={container}>
-					<Screen entry={displayAnEntry} entries={displayAllEntries} />
+					<Screen entry={activeEntry} entries={allEntries} validInput={isValidInput} />
 					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 				</div>
 			</div>
@@ -132,6 +158,7 @@ class App extends Component {
 }
 
 const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.', '±'];
+const NUMBER_INPUTS = INPUTS.filter(input => !isNaN(input));
 const OPERATORS = ['÷', 'x', '-', '+', '='];
 
 export default App;

@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 const Screen = props => {
 	const { container, topDisplay, displayAll, displayEntry, btn } = style;
-	const { entry, entries } = props;
+	const { entry, entries, validInput } = props;
 	const TOP_SCROLL = document.getElementById('top');
 
 	const handleScrollLeft = () => {
@@ -27,7 +27,7 @@ const Screen = props => {
 		};
 
 	// set reset display to 0 when C or CE.
-	entry ? (bottomEntry = entry) : (bottomEntry = '0');
+	validInput ? (bottomEntry = entry) : (bottomEntry = '0');
 
 	// set top display to overflow scroll with arrows navigation when entries > screen width.
 	if (topEntries && topEntries.length > 15) {
