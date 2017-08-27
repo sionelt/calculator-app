@@ -6,6 +6,7 @@ import Screen from './Screen';
 class App extends Component {
 	constructor() {
 		super();
+
 		this.state = {
 			pendingEntry: '',
 			activeEntry: '',
@@ -13,6 +14,7 @@ class App extends Component {
 			togglePlusMinus: true,
 			isValidInput: false
 		};
+
 		this.handleClick = this.handleClick.bind(this);
 		this.handleNumberInputs = this.handleNumberInputs.bind(this);
 		this.handleErrorInput = this.handleErrorInput.bind(this);
@@ -46,8 +48,12 @@ class App extends Component {
 					this.handleClearGlobal();
 			}
 		} else {
-			this.handleCalculation(activeEntry);
-			anInput === '=' ? this.handleEqualToDisplay() : this.handleArithmeticsDisplay(activeEntry, anInput);
+			!isValidInput || !pendingEntry
+				? this.handleErrorInput()
+				: (
+						this.handleCalculation(activeEntry),
+						anInput === '=' ? this.handleEqualToDisplay() : this.handleArithmeticsDisplay(activeEntry, anInput)
+					);
 		}
 	}
 

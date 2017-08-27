@@ -12,7 +12,7 @@ const Screen = props => {
 	};
 
 	const handleScrollRight = () => {
-		TOP_SCROLL.scrollLeft = test;
+		TOP_SCROLL.scrollLeft = 1000;
 	};
 
 	let topEntries = entries,
