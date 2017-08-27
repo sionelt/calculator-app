@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import style from 'styles/globals.css';
+import style from 'styles/App.css';
 import Keypad from './Keypad';
 import Screen from './Screen';
 

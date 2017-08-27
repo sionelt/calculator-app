@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import style from 'styles/Screen.css';
 import propTypes from 'prop-types';
 
@@ -26,7 +26,7 @@ const Screen = props => {
 			paddingRight: '10px'
 		};
 
-	// set reset display to 0 when C or CE.
+	// default to display 0 when its a invalid input, C or CE.
 	validInput ? (bottomEntry = entry) : (bottomEntry = '0');
 
 	// set top display to overflow scroll with arrows navigation when entries > screen width.
