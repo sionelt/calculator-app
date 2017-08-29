@@ -50,13 +50,13 @@
 
 @media all and (max-width: 500px) {
 	.container {
-		height: 70%;
+		height: 70vh;
 	}
 	.inputs {
-		width: 75%;
+		width: 75vw;
 	}
 	.operators {
-		width: 25%;
+		width: 25vw;
 	}
 	.btn {
 		height: 20%;
@@ -66,5 +66,11 @@
 	}
 	.operator {
 		width: 100%;
+	}
+	.input:hover {
+		background-color: #c6c6cb;
+	}
+	.operator:hover {
+		background-color: #f68111;
 	}
 }

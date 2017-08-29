@@ -51,6 +51,19 @@
 
 @media all and (max-width: 500px) {
 	.container {
-		height: 30%;
+		height: 30vh;
+		width: 100vw;
+	}
+	.displayAll {
+		font-size: 1.5em;
+	}
+	.displayEntry {
+		font-size: 3em;
+	}
+}
+
+@media all and (min-width: 400px) and (max-width: 500px) {
+	.displayEntry {
+		font-size: 3.4em;
 	}
 }
