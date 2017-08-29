@@ -18,6 +18,7 @@
 }
 .displayAll {
 	display: flex;
+	padding-bottom: 60px;
 	overflow-y: hidden;
 	overflow-x: scroll;
 	white-space: nowrap;
@@ -59,6 +60,9 @@
 	}
 	.displayEntry {
 		font-size: 3em;
+	}
+	.btn {
+		padding: 10px;
 	}
 }
 @media all and (min-width: 400px) and (max-width: 500px) {

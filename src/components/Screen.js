@@ -45,23 +45,24 @@ const Screen = props => {
 		);
 
 		/*--THIS ALLOW AUTO SCROLL TO THE END WHEN TOP DISPLAY IS UPDATED--*/
-		//top display's container direction; right to left.
+		// top display's container direction; right to left.
 		topContainerDirection = {
 			paddingRight: '0',
 			direction: 'rtl'
 		};
-		//set text within top display container; left to right.
+		// set text within top display container; left to right.
 		topTextDirection = {
 			direction: 'ltr'
 		};
 	}
-	const mq = window.matchMedia('(max-width: 500px)');
+
 	// shrink and limit bottom display entry to fit screen width and 9 digits only.
 	if (bottomEntry && bottomEntry.length > 7) {
-		if (mq.matches) {
+		// equavalent of media queries for mobile
+		const mobileSize = window.matchMedia('(max-width: 500px)');
+		if (mobileSize.matches) {
 			shrinkToFit = {
-				fontSize: '2em',
-				paddingTop: '51px'
+				fontSize: '2em'
 			};
 		} else {
 			shrinkToFit = {
@@ -69,10 +70,11 @@ const Screen = props => {
 				paddingTop: '29px'
 			};
 		}
+
 		// convert overflow returned answer into exponential format with 4 decimals max.
 		if (bottomEntry.length > 11) {
 			// counting commas; 9 digits + 2 commas.
-			bottomEntry = parseFloat(bottomEntry).toExponential(4).toLocaleString();
+			bottomEntry = parseFloat(bottomEntry).toExponential(5).toLocaleString();
 		}
 	}
 
