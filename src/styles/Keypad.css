@@ -45,6 +45,26 @@
 	background-color: #bfbfbf;
 }
 .operator:active {
-  background-color: #F79A43;
+	background-color: #f79a43;
 }
 
+@media all and (max-width: 500px) {
+	.container {
+		height: 70%;
+	}
+	.inputs {
+		width: 75%;
+	}
+	.operators {
+		width: 25%;
+	}
+	.btn {
+		height: 20%;
+	}
+	.input {
+		width: 33.333%;
+	}
+	.operator {
+		width: 100%;
+	}
+}

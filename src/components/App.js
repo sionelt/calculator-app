@@ -17,6 +17,7 @@ class App extends Component {
 
 		this.handleClick = this.handleClick.bind(this);
 		this.handleNumberInputs = this.handleNumberInputs.bind(this);
+		this.handleDecimalInput = this.handleDecimalInput.bind(this);
 		this.handleErrorInput = this.handleErrorInput.bind(this);
 		this.handlePlusMinusInput = this.handlePlusMinusInput.bind(this);
 		this.handlePercentageInput = this.handlePercentageInput.bind(this);
@@ -35,6 +36,9 @@ class App extends Component {
 				case NUMBER_INPUTS.includes(anInput):
 					this.handleNumberInputs(anInput);
 					break;
+				case anInput === '.':
+					this.handleDecimalInput(anInput);
+					break;
 				case anInput === '±':
 					!isValidInput ? this.handleErrorInput() : this.handlePlusMinusInput(togglePlusMinus);
 					break;
@@ -52,23 +56,47 @@ class App extends Component {
 				? this.handleErrorInput()
 				: (
 						this.handleCalculation(activeEntry),
-						anInput === '=' ? this.handleEqualToDisplay() : this.handleArithmeticsDisplay(activeEntry, anInput)
+						anInput === '='
+							? this.handleEqualToDisplay(activeEntry)
+							: this.handleArithmeticsDisplay(activeEntry, anInput, pendingEntry)
 					);
 		}
 	}
 
 	/*-- HANDLE AN ENTRY --*/
 	handleNumberInputs(anInput) {
-		this.setState(prevState => ({
-			// substr() limit an entry to 9 digits; 8 previous + 1 current
-			pendingEntry: (prevState.pendingEntry + anInput).substr(0, 9)
-		}));
+		this.setState(
+			prevState =>
+				// substr() limit an entry to 9 digits; 8 previous + 1 current
+				prevState.pendingEntry.includes('.')
+					? { pendingEntry: (prevState.pendingEntry + anInput).substr(0, 10) }
+					: { pendingEntry: (prevState.pendingEntry + anInput).substr(0, 9) }
+		);
+
 		// this setState sync the pendingEntry above so bottom display is updated anew on every entry
 		this.setState(state => ({
-			// toLocaleString() format entries with comma.
-			activeEntry: parseFloat(state.pendingEntry).toLocaleString(),
+			// toLocaleString() format entries with comma and decimals max at 8.
+			activeEntry: parseFloat(state.pendingEntry).toLocaleString(undefined, { maximumFractionDigits: 8 }),
 			isValidInput: true
 		}));
+	}
+
+	/*-- HANDLE DECIMAL INPUT --*/
+	handleDecimalInput(anInput) {
+		this.setState(
+			prevState =>
+				!prevState.pendingEntry
+					? {
+							activeEntry: '0' + anInput,
+							pendingEntry: prevState.pendingEntry + anInput,
+							isValidInput: true
+						}
+					: {
+							activeEntry: prevState.pendingEntry + anInput,
+							pendingEntry: prevState.pendingEntry + anInput,
+							isValidInput: true
+						}
+		);
 	}
 
 	/*-- HANDLE INVALID INPUT --*/
@@ -127,24 +155,23 @@ class App extends Component {
 	handleCalculation(activeEntry) {
 		this.setState(prevState => ({
 			activeEntry: eval(
-				// replace all occurances commas, x and ÷.
+				// replace all occurances commas, x and ÷ for valid eval().
 				(prevState.allEntries + activeEntry).replace(/,/g, '').replace(/x/g, '*').replace(/÷/g, '/')
-			).toLocaleString(),
-			// resetting to start anew a new entry without carrying over displayed answers.
-			pendingEntry: '',
+			).toLocaleString(undefined, { maximumFractionDigits: 8 }),
 			isValidInput: true
 		}));
 	}
 
 	/*-- HANDLE THE FINAL EQUATED ENTRY --*/
-	handleEqualToDisplay() {
-		this.setState({ allEntries: '' });
+	handleEqualToDisplay(activeEntry) {
+		this.setState({ allEntries: '', pendingEntry: activeEntry });
 	}
 
 	/*-- HANDLE ALL ARITHMETICS ENTRIES --*/
 	handleArithmeticsDisplay(activeEntry, anInput) {
 		this.setState(prevState => ({
-			allEntries: prevState.allEntries + activeEntry + anInput
+			allEntries: prevState.allEntries + activeEntry + anInput,
+			pendingEntry: ''
 		}));
 	}
 
@@ -153,11 +180,9 @@ class App extends Component {
 		const { activeEntry, allEntries, isValidInput } = this.state;
 
 		return (
-			<div className={demo}>
-				<div className={container}>
-					<Screen entry={activeEntry} entries={allEntries} validInput={isValidInput} />
-					<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
-				</div>
+			<div className={container}>
+				<Screen entry={activeEntry} entries={allEntries} validInput={isValidInput} />
+				<Keypad inputKeys={INPUTS} operatorKeys={OPERATORS} onInput={this.handleClick} />
 			</div>
 		);
 	}
