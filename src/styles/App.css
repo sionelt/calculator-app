@@ -5,12 +5,16 @@
 	box-sizing: border-box;
 }
 
-/* html,
+html,
 body,
 main {
 	height: 100%;
 	width: 100%;
-} */
+}
+
+div {
+	max-width: 100%;
+}
 
 body {
 	font-family: Work Sans, sans-serif;

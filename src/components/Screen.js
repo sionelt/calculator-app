@@ -6,6 +6,7 @@ const Screen = props => {
 	const { container, topDisplay, displayAll, displayEntry, btn } = style;
 	const { entry, entries, validInput } = props;
 	const TOP_SCROLL = document.getElementById('top');
+	const BOTTOM_SHRINK = document.getElementById('bottom');
 
 	const handleScrollLeft = () => {
 		TOP_SCROLL.scrollLeft = 0;
@@ -54,13 +55,20 @@ const Screen = props => {
 			direction: 'ltr'
 		};
 	}
-
+	const mq = window.matchMedia('(max-width: 500px)');
 	// shrink and limit bottom display entry to fit screen width and 9 digits only.
 	if (bottomEntry && bottomEntry.length > 7) {
-		shrinkToFit = {
-			fontSize: '1.7em',
-			paddingTop: '29px'
-		};
+		if (mq.matches) {
+			shrinkToFit = {
+				fontSize: '2em',
+				paddingTop: '51px'
+			};
+		} else {
+			shrinkToFit = {
+				fontSize: '1.7em',
+				paddingTop: '29px'
+			};
+		}
 		// convert overflow returned answer into exponential format with 4 decimals max.
 		if (bottomEntry.length > 11) {
 			// counting commas; 9 digits + 2 commas.
@@ -79,7 +87,7 @@ const Screen = props => {
 				</div>
 				{overflowRight}
 			</div>
-			<div className={displayEntry} style={shrinkToFit}>
+			<div id="bottom" className={displayEntry} style={shrinkToFit}>
 				{bottomEntry}
 			</div>
 		</div>

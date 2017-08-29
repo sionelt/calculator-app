@@ -48,7 +48,6 @@
 .btn:hover {
 	color: #fff;
 }
-
 @media all and (max-width: 500px) {
 	.container {
 		height: 30vh;
@@ -56,12 +55,12 @@
 	}
 	.displayAll {
 		font-size: 1.5em;
+		font-weight: 300;
 	}
 	.displayEntry {
 		font-size: 3em;
 	}
 }
-
 @media all and (min-width: 400px) and (max-width: 500px) {
 	.displayEntry {
 		font-size: 3.4em;
