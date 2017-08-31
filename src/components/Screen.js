@@ -74,7 +74,7 @@ const Screen = props => {
 		// convert overflow returned answer into exponential format with 4 decimals max.
 		if (bottomEntry.length > 11) {
 			// counting commas; 9 digits + 2 commas.
-			bottomEntry = parseFloat(bottomEntry).toExponential(5).toLocaleString();
+			bottomEntry = parseFloat(bottomEntry).toExponential(5).toLocaleString(undefined, { maximumFractionDigits: 8 });
 		}
 	}
 

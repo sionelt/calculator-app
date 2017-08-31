@@ -126,7 +126,9 @@ class App extends Component {
 	/*-- HANDLE CONVERTING ACTIVE ENTRY INTO PERCENTAGE --*/
 	handlePercentageInput(activeEntry) {
 		this.setState({
-			activeEntry: (parseFloat(activeEntry.replace(/,/g, '')) / 100).toLocaleString()
+			activeEntry: (parseFloat(activeEntry.replace(/,/g, '')) / 100).toLocaleString(undefined, {
+				maximumFractionDigits: 8
+			})
 		});
 	}
 

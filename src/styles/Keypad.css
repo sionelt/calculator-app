@@ -54,12 +54,14 @@
 	}
 	.inputs {
 		width: 75vw;
+		height: 70vh;
 	}
 	.operators {
 		width: 25vw;
 	}
 	.btn {
 		height: 20%;
+		border-radius: 1px;
 	}
 	.input {
 		width: 33.333%;
