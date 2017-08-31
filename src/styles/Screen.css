@@ -15,6 +15,7 @@
 }
 .topDisplay {
 	display: flex;
+	height: 15vh;
 }
 .displayAll {
 	display: flex;
@@ -30,6 +31,9 @@
 	font-size: 2.5em;
 	font-weight: 200;
 	padding: 0 10px;
+	height: 15vh;
+	display: flex;
+	align-items: flex-end;
 }
 .btn {
 	display: inline;
@@ -52,6 +56,7 @@
 	.container {
 		height: 30vh;
 		width: 100vw;
+		padding-top: 15px;
 	}
 	.displayAll {
 		font-size: 1.5em;
