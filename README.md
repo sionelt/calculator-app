@@ -3,7 +3,10 @@
 * CE button.
 * scrollable top display for all entries.
 * arrow buttons for top display's navigation when content exceeds screen's width.
-* strick operator that executed only once on every entry. 
+* strick operator that executed only once on every entry.
+
+DEMO: http://clone-iphone-calculator.surge.sh
+
 <br />
 <center><img src='proto/calculatorApp.png' alt='prototype'></center>
 <center>iphone prototype of the calculator</center>
