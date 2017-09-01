@@ -3,6 +3,10 @@ import style from 'styles/App.css';
 import Keypad from './Keypad';
 import Screen from './Screen';
 
+const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.', '±'];
+const NUMBER_INPUTS = INPUTS.filter(input => !isNaN(input));
+const OPERATORS = ['÷', 'x', '-', '+', '='];
+
 class App extends Component {
 	constructor() {
 		super();
@@ -189,9 +193,5 @@ class App extends Component {
 		);
 	}
 }
-
-const INPUTS = ['C', 'CE', '%', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.', '±'];
-const NUMBER_INPUTS = INPUTS.filter(input => !isNaN(input));
-const OPERATORS = ['÷', 'x', '-', '+', '='];
 
 export default App;

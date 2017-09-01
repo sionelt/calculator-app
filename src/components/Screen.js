@@ -6,10 +6,9 @@ const Screen = props => {
 	const { container, topDisplay, displayAll, displayEntry, btn } = style;
 	const { entry, entries, validInput } = props;
 	const TOP_SCROLL = document.getElementById('top');
-	const BOTTOM_SHRINK = document.getElementById('bottom');
 
 	const handleScrollLeft = () => {
-		TOP_SCROLL.scrollLeft = 0;
+		TOP_SCROLL.scrollLeft = -300;
 	};
 
 	const handleScrollRight = () => {
@@ -89,7 +88,7 @@ const Screen = props => {
 				</div>
 				{overflowRight}
 			</div>
-			<div id="bottom" className={displayEntry} style={shrinkToFit}>
+			<div className={displayEntry} style={shrinkToFit}>
 				{bottomEntry}
 			</div>
 		</div>
