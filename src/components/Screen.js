@@ -96,7 +96,7 @@ const Screen = props => {
 };
 
 Screen.propTypes = {
-	entry: propTypes.string.isRequred,
+	entry: propTypes.string.isRequired,
 	entries: propTypes.string.isRequired
 };
 
